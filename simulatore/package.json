@@ -7,5 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Salvatore Russo & Placido Papotto",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@azure/digital-twins-core": "^1.1.0",
+    "@azure/identity": "^3.2.2",
+    "util": "^0.12.5"
+  }
 }

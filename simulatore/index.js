@@ -1,4 +1,5 @@
 const random = require('./modules/random')
+const telemetry = require('./modules/telemetry')
 
 // Costanti termodinamiche
 const caloreSpecificoAcqua = 4.81; // kJ/kg·°C
@@ -48,6 +49,12 @@ function simulazione() {
     const potenza = lavoro/1;
     console.log("Potenza:", (potenza/1000).toFixed(2),"kW");
     console.log("...\n")
+    telemetry.sendTelemetry('BensonBoiler', '/TemperaturaAcquaIngresso', temperaturaIniziale)
+    telemetry.sendTelemetry('BensonBoiler', '/CaloreDisperso', caloreDisperso)
+    telemetry.sendTelemetry('BensonBoiler', '/Efficienza', efficienza)
+    telemetry.sendTelemetry('BensonBoiler', '/FlussoAcquaIngresso', flussoMassicoAcqua)
+    telemetry.sendTelemetry('BensonBoiler', '/TemperaturaVaporeUscita', efficienza)
+    telemetry.sendTelemetry('GeneratoreElettrico', '/PotenzaElettrica', (potenza/1000))    
 }
 
 simulazione()
