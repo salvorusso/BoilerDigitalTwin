@@ -51,7 +51,7 @@
             "contents": [
                 {
                     "@type": "Property",
-                    "name": "EnergiaElettricaProdotta",
+                    "name": "PotenzaElettrica",
                     "schema": "double"
                 }
             ],
