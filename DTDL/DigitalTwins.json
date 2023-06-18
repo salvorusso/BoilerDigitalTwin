@@ -1,0 +1,116 @@
+{
+    "digitalTwinsFileInfo": {
+        "fileVersion": "1.0.0"
+    },
+    "digitalTwinsGraph": {
+        "digitalTwins": [
+            {
+                "$dtId": "ImpiantoProduzione",
+                "$etag": "W/\"068a01b0-864e-4cc7-9012-d8f406149af0\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler",
+                "$etag": "W/\"5b4ed0aa-4add-4b5f-a761-e3be869ee668\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico",
+                "$etag": "W/\"5eb5b0d1-93d9-484c-8dff-cde82c6f78b4\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            }
+        ],
+        "relationships": [
+            {
+                "$relationshipId": "d846382e-06a1-4c40-801a-187193fb3313",
+                "$sourceId": "BensonBoiler",
+                "$targetId": "GeneratoreElettrico",
+                "$relationshipName": "contains",
+                "$etag": "W/\"8d7c9595-62de-4cf6-b9c8-16936c8b9bc1\""
+            },
+            {
+                "$relationshipId": "7e6f4b22-64ef-4162-b886-105bbdd228ae",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler",
+                "$relationshipName": "contains",
+                "$etag": "W/\"3cb602e4-6d56-4a40-b597-14b4a31c603b\""
+            }
+        ]
+    },
+    "digitalTwinsModels": [
+        {
+            "@id": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+            "@type": "Interface",
+            "displayName": "Generatore Elettrico",
+            "contents": [
+                {
+                    "@type": "Property",
+                    "name": "EnergiaElettricaProdotta",
+                    "schema": "double"
+                }
+            ],
+            "@context": "dtmi:dtdl:context;2"
+        },
+        {
+            "@id": "dtmi:industrialInformatics:BensonBoiler;1",
+            "@type": "Interface",
+            "displayName": "Benson Boiler",
+            "contents": [
+                {
+                    "@type": "Relationship",
+                    "name": "contains",
+                    "displayName": "contains",
+                    "description": "Generatore elettrico associato al boiler",
+                    "target": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                },
+                {
+                    "@type": "Property",
+                    "name": "FlussoAcquaIngresso",
+                    "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "TemperaturaAcquaIngresso",
+                    "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "TemperaturaVaporeUscita",
+                    "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "Efficienza",
+                    "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "CaloreDisperso",
+                    "schema": "double"
+                }
+            ],
+            "@context": "dtmi:dtdl:context;2"
+        },
+        {
+            "@id": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+            "@type": "Interface",
+            "displayName": "Impianto di produzione",
+            "contents": [
+                {
+                    "@type": "Relationship",
+                    "name": "contains",
+                    "displayName": "contains",
+                    "description": "Benson Boiler dell'impianto di produzione",
+                    "target": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            ],
+            "@context": "dtmi:dtdl:context;2"
+        }
+    ]
+}

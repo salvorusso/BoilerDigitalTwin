@@ -1,0 +1,14 @@
+{
+    "@id": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+    "@type": "Interface",
+    "displayName": "Generatore Elettrico",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "EnergiaElettricaProdotta",
+        "schema": "double"
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  }
+  

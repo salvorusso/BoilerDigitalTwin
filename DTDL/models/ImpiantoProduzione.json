@@ -1,0 +1,16 @@
+{
+    "@id": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+    "@type": "Interface",
+    "displayName": "Impianto di produzione",
+    "contents": [
+      {
+        "@type": "Relationship",
+        "name": "contains",
+        "displayName": "contains",
+        "description": "Benson Boiler dell'impianto di produzione",
+        "target": "dtmi:industrialInformatics:BensonBoiler;1"
+      }    
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  }
+  
