@@ -1,7 +1,7 @@
 {
-  "name": "opc-server",
+  "name": "opc-client",
   "version": "1.0.0",
-  "description": "Industrial informatics exam project - Unict",
+  "description": "Industrial Informatics exam project - Unict",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
