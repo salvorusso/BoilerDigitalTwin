@@ -3,8 +3,8 @@ const { DigitalTwinsClient } = require("@azure/digital-twins-core");
 const { inspect } = require("util");
 
 
-async function sendTelemetry(id, path, value) {
-    const url = "https://Sample-DT.api.weu.digitaltwins.azure.net";
+async function updateData(id, path, value) {
+    const url = process.env.DT_URL;
     const credential = new DefaultAzureCredential();
     const serviceClient = new DigitalTwinsClient(url, credential);
 
@@ -14,10 +14,10 @@ async function sendTelemetry(id, path, value) {
         value: value
         };
 
-    const updatedTwin = await serviceClient.updateDigitalTwin(id, [twinPatch]);
-    //console.log(`Updated Digital Twin:`, inspect(updatedTwin));
+    await serviceClient.updateDigitalTwin(id, [twinPatch]);
+    console.log(`Updated Digital Twin:`, `Path:`, path, `value`, value);
 }
 
 module.exports = {
-    sendTelemetry
+    updateData
 }
