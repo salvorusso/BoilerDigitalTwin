@@ -70,5 +70,6 @@ function simulazione() {
     sendTelemetry(); 
 }
 
-simulazione();
-setInterval(simulazione, 10000);
+console.log("Simulation interval:", process.env.PERIOD, "ms")
+console.log("Starting Benson Boiler simulation... (Ctrl + C to exit...)\n...")
+setInterval(simulazione, process.env.PERIOD);
