@@ -11,37 +11,37 @@ const massaMolareAcqua = 18.015; // g/mol
 const pressioneIniziale = 20; // MPa ~ 200 Bar
 
 // Grandezze osservate
-let flussoMassicoAcqua = 120; // kg/s (valore letto dal sensore)
-let temperaturaIniziale = 25; // °C (valore letto dal sensore)
-let temperaturaFinale = 300; // °C (valore letto dal sensore)
+let flussoAcquaIngresso = 120; // kg/s (valore letto dal sensore)
+let temperaturaAcquaIngresso = 25; // °C (valore letto dal sensore)
+let temperaturaVaporeUscita = 300; // °C (valore letto dal sensore)
 let caloreDisperso = 0; // %
 let efficienza = 100; // %
-let potenza = 0; // kW
+let potenzaElettrica = 0; // kW
 
 function sendTelemetry(){
     //Update Digital Twin
     if(process.env.UPDATE_DT == 'true'){
-        telemetry.updateData('BensonBoiler', '/TemperaturaAcquaIngresso', temperaturaIniziale)
+        telemetry.updateData('BensonBoiler', '/TemperaturaAcquaIngresso', temperaturaAcquaIngresso)
         telemetry.updateData('BensonBoiler', '/CaloreDisperso', caloreDisperso)
         telemetry.updateData('BensonBoiler', '/Efficienza', efficienza)
-        telemetry.updateData('BensonBoiler', '/FlussoAcquaIngresso', flussoMassicoAcqua)
-        telemetry.updateData('BensonBoiler', '/TemperaturaVaporeUscita', temperaturaFinale)
-        telemetry.updateData('GeneratoreElettrico', '/PotenzaElettrica', (potenza/1000))    
+        telemetry.updateData('BensonBoiler', '/FlussoAcquaIngresso', flussoAcquaIngresso)
+        telemetry.updateData('BensonBoiler', '/TemperaturaVaporeUscita', temperaturaVaporeUscita)
+        telemetry.updateData('GeneratoreElettrico', '/PotenzaElettrica', (potenzaElettrica/1000))    
     }
 }
 
 function simulazione() {
-    flussoMassicoAcqua = random.getValoreSensore(flussoMassicoAcqua); 
-    console.log("\nFlusso Acqua", flussoMassicoAcqua.toFixed(2),"kg/s");
-    temperaturaIniziale = random.getValoreSensore(temperaturaIniziale); 
-    console.log("Temperatura Acqua", temperaturaIniziale.toFixed(2),"°C\n");
+    flussoAcquaIngresso = random.getValoreSensore(flussoAcquaIngresso); 
+    console.log("\nFlusso Acqua", flussoAcquaIngresso.toFixed(2),"kg/s");
+    temperaturaAcquaIngresso = random.getValoreSensore(temperaturaAcquaIngresso); 
+    console.log("Temperatura Acqua", temperaturaAcquaIngresso.toFixed(2),"°C\n");
     
     // Parametri in uscita
-    temperaturaFinale = random.getValoreSensore(300); 
+    temperaturaVaporeUscita = random.getValoreSensore(300); 
     
     // Calcolo del calore fornito all'acqua
     // Q = mcΔT
-    const caloreFornito = flussoMassicoAcqua * caloreSpecificoAcqua * (temperaturaFinale - temperaturaIniziale); // J
+    const caloreFornito = flussoAcquaIngresso * caloreSpecificoAcqua * (temperaturaVaporeUscita - temperaturaAcquaIngresso); // J
     console.log("Calore fornito", caloreFornito.toFixed(2), "J");
     
     // Calcolo del calore del disperso (assumendo una fluttuazione casuale)
@@ -53,7 +53,7 @@ function simulazione() {
     // Calcolo dell'efficienza della caldaia
     efficienza = (1 - (caloreDisperso / caloreFornito))*100;
     
-    console.log("Temperatura vapore in uscita:", temperaturaFinale.toFixed(2), "°C\n");
+    console.log("Temperatura vapore in uscita:", temperaturaVaporeUscita.toFixed(2), "°C\n");
     console.log("Efficienza della caldaia:", efficienza.toFixed(2), "%");
     
     // Calcolo energia termica convertita in lavoro
@@ -61,15 +61,41 @@ function simulazione() {
     const lavoro = efficienza/100 * caloreFornito; // J/s ~ W
     console.log("Energia termica convertita in lavoro:", lavoro.toFixed(2), "J");
     
-    // Calcolo potenza generata dal motore
-    // Per semplicità, calcoliamo la potenza come P=W/t
+    // Calcolo potenzaElettrica generata dal motore
+    // Per semplicità, calcoliamo la potenzaElettrica come P=W/t
     // Supponiamo un motore ideale privo di perdite, in un tempo t=1s
-    potenza = lavoro/1;
-    console.log("Potenza:", (potenza/1000).toFixed(2),"kW");
+    potenzaElettrica = lavoro/1;
+    console.log("Potenza:", (potenzaElettrica/1000).toFixed(2),"kW");
     console.log("...\n");
     sendTelemetry(); 
 }
 
-console.log("Simulation interval:", process.env.PERIOD, "ms")
-console.log("Starting Benson Boiler simulation... (Ctrl + C to exit...)\n...")
-setInterval(simulazione, process.env.PERIOD);
+// Server http per esporre le variabili
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/TemperaturaAcquaIngresso', (req, res) => {
+  res.send({temperaturaAcquaIngresso})
+})
+app.get('/CaloreDisperso', (req, res) => {
+    res.send({caloreDisperso})
+})
+app.get('/Efficienza', (req, res) => {
+    res.send({efficienza})
+})
+app.get('/FlussoAcquaIngresso', (req, res) => {
+    res.send({flussoAcquaIngresso})
+})
+app.get('/TemperaturaVaporeUscita', (req, res) => {
+    res.send({temperaturaVaporeUscita})
+})
+app.get('/PotenzaElettrica', (req, res) => {
+    res.send({potenzaElettrica})
+})
+app.listen(port, () => {
+    console.log("Starting Benson Boiler simulation... (Ctrl + C to exit...)\n...")
+    console.log(`Server listening on port ${port}`)
+    console.log("Simulation interval:", process.env.PERIOD, "ms\n...")
+    setInterval(simulazione, process.env.PERIOD);
+})
