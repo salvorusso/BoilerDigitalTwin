@@ -75,22 +75,22 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/TemperaturaAcquaIngresso', (req, res) => {
+app.get('/temperaturaAcquaIngresso', (req, res) => {
   res.send({temperaturaAcquaIngresso})
 })
-app.get('/CaloreDisperso', (req, res) => {
+app.get('/caloreDisperso', (req, res) => {
     res.send({caloreDisperso})
 })
-app.get('/Efficienza', (req, res) => {
+app.get('/efficienza', (req, res) => {
     res.send({efficienza})
 })
-app.get('/FlussoAcquaIngresso', (req, res) => {
+app.get('/flussoAcquaIngresso', (req, res) => {
     res.send({flussoAcquaIngresso})
 })
-app.get('/TemperaturaVaporeUscita', (req, res) => {
+app.get('/temperaturaVaporeUscita', (req, res) => {
     res.send({temperaturaVaporeUscita})
 })
-app.get('/PotenzaElettrica', (req, res) => {
+app.get('/potenzaElettrica', (req, res) => {
     res.send({potenzaElettrica})
 })
 app.listen(port, () => {
