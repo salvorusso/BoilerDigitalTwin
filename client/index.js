@@ -117,6 +117,7 @@ async.series([
        
        monitoredItem.on("changed", function(dataValue) {
           console.log("monitored item changed:  % free mem = ", dataValue.value.value);
+          //Aggiorna IoT Hub
        });
     },
     function(callback) {

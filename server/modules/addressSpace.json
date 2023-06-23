@@ -1,0 +1,12 @@
+{
+    "Boiler": {
+        "caloreDisperso": "Calore Disperso",
+        "temperaturaAcquaIngresso": "Temperatura Acqua in Ingresso",
+        "efficienza": "Efficienza",
+        "flussoAcquaIngresso": "Flusso Acqua in Ingresso",
+        "temperaturaVaporeUscita": "Temperatura Vapore in Uscita"
+    },
+    "Generatore Elettrico": {
+        "potenzaElettrica": "Potenza Elettrica"
+    }
+}

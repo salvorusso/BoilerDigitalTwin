@@ -2,21 +2,10 @@ const opcua = require("node-opcua");
 const axios = require('axios');
 
 // Mappa dei nodi osservati dal server
+// Al primo livello troviamo gli oggetti
+// Dentro, le chiavi indicano le loro variabili
 // Il valore indica il BrowseName
-const nodes = {
-    "Boiler": {
-        caloreDisperso: "Calore Disperso",
-        temperaturaAcquaIngresso: "Temperatura Acqua in Ingresso",
-        caloreDisperso: "Calore Disperso",
-        efficienza: "Efficienza",
-        flussoAcquaIngresso: "Flusso Acqua in Ingresso",
-        temperaturaVaporeUscita: "Temperatura Vapore in Uscita"
-    },
-    "Generatore Elettrico": {
-        potenzaElettrica: "Potenza Elettrica"
-    }
-
-}
+const nodes = require('./addressSpace.json')
 
 function generateVariable(object, browseName, value) {
     return {
