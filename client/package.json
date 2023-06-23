@@ -9,6 +9,7 @@
   "author": "Salvatore Russo & Placido Papotto",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "node-opcua": "^2.105.1"
   }
 }
