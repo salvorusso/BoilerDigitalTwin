@@ -56,9 +56,9 @@ async.series([
 
     // step 4 : read a variable with readVariableValue
     function (callback) {
-        opcSession.readVariableValue("ns=1;s=free_memory", function (err, dataValue) {
+        opcSession.readVariableValue("ns=1;s=temperaturaAcquaIngresso", function (err, dataValue) {
             if (!err) {
-                console.log(" free mem % = ", dataValue.toString());
+                console.log(" Temperatura Acqua in Ingresso = ", dataValue.toString());
             }
             callback(err);
         });
@@ -67,11 +67,11 @@ async.series([
     // step 4' : read a variable with read
     function (callback) {
         const maxAge = 0;
-        const nodeToRead = { nodeId: "ns=1;s=free_memory", attributeId: opcua.AttributeIds.Value };
+        const nodeToRead = { nodeId: "ns=1;s=caloreDisperso", attributeId: opcua.AttributeIds.Value };
 
         opcSession.read(nodeToRead, maxAge, function (err, dataValue) {
             if (!err) {
-                console.log(" free mem % = ", dataValue.toString());
+                console.log(" Calore Disperso = ", dataValue.toString());
             }
             callback(err);
         });
@@ -105,7 +105,7 @@ async.series([
     async function (callback) {
         // install monitored item
         const monitoredItem = await opcSubscription.monitor({
-            nodeId: opcua.resolveNodeId("ns=1;s=free_memory"),
+            nodeId: opcua.resolveNodeId("ns=1;s=potenzaElettrica"),
             attributeId: opcua.AttributeIds.Value
         },
             {
@@ -118,7 +118,7 @@ async.series([
         console.log("-------------------------------------");
 
         monitoredItem.on("changed", function (dataValue) {
-            console.log("monitored item changed:  % free mem = ", dataValue.value.value);
+            console.log("monitored item changed:  Potenza Elettrica = ", dataValue.value.value);
             //Aggiorna IoT Hub
         });
     },
