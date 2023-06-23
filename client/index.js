@@ -22,9 +22,9 @@ async.series([
     function (callback) {
         client.connect(endpointUrl, function (err) {
             if (err) {
-                console.log(" cannot connect to endpoint :", endpointUrl);
+                console.log("Cannot connect to endpoint :", endpointUrl);
             } else {
-                console.log("connected !");
+                console.log("Connected to server", endpointUrl);
             }
             callback(err);
         });
@@ -45,9 +45,9 @@ async.series([
     function (callback) {
         opcSession.browse("RootFolder", function (err, browseResult) {
             if (!err) {
-                console.log("Browsing rootfolder: ");
+                console.log("Browsing Root folder: ");
                 for (let reference of browseResult.references) {
-                    console.log(reference.browseName.toString(), reference.nodeId.toString());
+                    console.log("\t"+reference.browseName.toString(), reference.nodeId.toString());
                 }
             }
             callback(err);
@@ -58,7 +58,7 @@ async.series([
     function (callback) {
         opcSession.readVariableValue("ns=1;s=temperaturaAcquaIngresso", function (err, dataValue) {
             if (!err) {
-                console.log(" Temperatura Acqua in Ingresso = ", dataValue.toString());
+                console.log("\nTemperatura Acqua in Ingresso = ", dataValue.toString());
             }
             callback(err);
         });
@@ -68,10 +68,9 @@ async.series([
     function (callback) {
         const maxAge = 0;
         const nodeToRead = { nodeId: "ns=1;s=caloreDisperso", attributeId: opcua.AttributeIds.Value };
-
         opcSession.read(nodeToRead, maxAge, function (err, dataValue) {
             if (!err) {
-                console.log(" Calore Disperso = ", dataValue.toString());
+                console.log("\nCalore Disperso = ", dataValue.toString());
             }
             callback(err);
         });
@@ -123,10 +122,10 @@ async.series([
         });
     },
     function (callback) {
-        // wait a little bit : 10 seconds
-        setTimeout(() => callback(), 10 * 1000);
+        // wait a little bit : 30 seconds
+        setTimeout(() => callback(), 10 * 3000);
     },
-    // terminate session
+    // terminate subscription
     function (callback) {
         opcSubscription.terminate(callback);;
     },
