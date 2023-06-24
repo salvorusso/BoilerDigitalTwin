@@ -20,10 +20,12 @@ function post_initialize() {
         console.log("Port ", server.endpoints[0].port);
         const endpointUrl = server.endpoints[0].endpointDescriptions()[0].endpointUrl;
         console.log("Primary server endpoint url", endpointUrl);
+
+        //Una alternativa rispetto alla versione attuale è quella di aggiornare "in background" i valori delle variabili, chiamando le API esposte dal simulatore
         // Aggiorna i valori in batch
-        setInterval(() => {
-            service.updateVariables(server)
-        }, 1000)
+        // setInterval(() => {
+        //     service.updateVariables(server)
+        // }, 1000)
     });
 }
 server.initialize(post_initialize);
