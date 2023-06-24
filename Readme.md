@@ -53,6 +53,13 @@ Per utilizzare questo progetto, è necessario seguire i seguenti passaggi:
 
 Si prega di notare che è necessario configurare correttamente tutte le dipendenze e le credenziali per far funzionare correttamente il progetto.
 
+## Versione Semplificata
+E' possibile utilizzare una versione minimale del progetto, che esclude gran parte dei moduli, come ad esempio i moduli OPCUA e IoT Hub.
+
+![Minimal](./assets/images/Minimal.png)
+
+In tal caso bisogna impostare `UPDATE_DT=false`
+
 ## Licenza
 Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://opensource.org/licenses/MIT). Fare riferimento al file LICENSE per ulteriori informazioni.
 
