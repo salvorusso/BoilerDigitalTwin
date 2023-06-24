@@ -7,22 +7,22 @@ Il progetto propone una soluzione end-to-end di uno scenario Industrial Iot, uti
 ![E2E Scenario](./assets/images/E2E.png)
 ## Descrizione dei moduli
 
-### Simulatore
+### Simulatore :wrench:
 Il modulo del simulatore è responsabile della generazione di variabili pseudocasuali che rappresentano i parametri della caldaia Benson a vapore e un Generatore Elettrico. Questo modulo è scritto in Node.js e utilizza un algoritmo per generare valori casuali di una caldaia a vapore.
 
-### Server OPC UA
+### Server OPC UA :desktop_computer:
 Il modulo del server OPC UA legge le variabili generate dal simulatore attraverso chiamate HTTP REST e aggiorna automaticamente lo spazio degli indirizzi (address space) del server OPC UA. Questo modulo è scritto in Node.js e utilizza librerie specifiche per la comunicazione OPC UA e per la gestione delle chiamate HTTP REST.
 
-### Client OPC UA
+### Client OPC UA :desktop_computer:
 Il modulo del client OPC UA si occupa di effettuare delle sottoscrizioni (subscriptions) per ogni nodo di interesse nel server OPC UA e invia i dati corrispondenti al servizio Azure IoT Hub. Questo modulo è scritto in Node.js e utilizza librerie specifiche per la comunicazione OPC UA e per l'invio dei dati ad Azure IoT Hub.
 
-### Azure Function
+### Azure Function :zap:
 La Azure Function viene attivata ogni volta che vi sono nuovi messaggi provenienti da Azure IoT Hub. La funzione si occupa di aggiornare l'istanza digital twin associata alla caldaia Benson a vapore. La funzione è collegata ad un topic MQTT di Azure Event Grid, ed utilizza le librerie specifiche di Azure Digital Twin per l'aggiornamento del gemello digitale.
 
-### Digital Twin
+### Digital Twin :robot:
 Il progetto include anche un modello Digital Twin definito in DTDL (Digital Twins Definition Language), che rappresenta la caldaia Benson e un Generatore Elettrico. Il Digital Twin viene aggiornato in tempo reale con i dati provenienti dal server OPC UA tramite Azure IoT Hub. Questo modello permette di monitorare e visualizzare lo stato della caldaia in modo interattivo e intuitivo. 
 
-### Azure 3D Scenes
+### Azure 3D Scenes :ice_cube:
 Per arricchire l'esperienza di visualizzazione del modello Digital Twin, il progetto utilizza Azure 3D Scenes. Azure 3D Scenes è un servizio di Azure che consente di creare scenari 3D interattivi basati su modelli e dati in tempo reale. Nel contesto di questo progetto, Azure 3D Scenes viene utilizzato per visualizzare la caldaia Benson a vapore in un ambiente tridimensionale, consentendo agli utenti di esplorarla e osservarne i cambiamenti nel tempo.
 
 ![3D Scene](./assets/images/3D%20Scene.png)
@@ -58,5 +58,5 @@ Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://open
 
 ## Autori
 
-- [Salvatore Russo](https://github.com/salvorusso)
-- [Placido Papotto](https://github.com/Papotto97)
+- [Salvatore Russo](https://github.com/salvorusso) :technologist:
+- [Placido Papotto](https://github.com/Papotto97) :technologist:
