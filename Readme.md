@@ -4,7 +4,7 @@ Questo progetto è stato sviluppato come parte del corso Magistrale di Ingegneri
 
 Il progetto propone una soluzione end-to-end di uno scenario Industrial Iot, utilizzando il protocollo OPCUA, Azure IoT Hub e Azure Digital Twin.
 
-![E2E Scenario](./assets/images/HLA%20-%202.drawio.png)
+![E2E Scenario](./assets/images/E2E.png)
 ## Descrizione dei moduli
 
 ### Simulatore
