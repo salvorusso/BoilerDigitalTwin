@@ -58,7 +58,7 @@ E' possibile utilizzare una versione minimale del progetto, che esclude gran par
 
 ![Minimal](./assets/images/Minimal.png)
 
-In tal caso bisogna impostare `UPDATE_DT=false`
+In tal caso bisogna impostare `UPDATE_DT=false` nel simulatore, per inviare direttamente i dati al Digital Twin.
 
 ## Licenza
 Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://opensource.org/licenses/MIT). Fare riferimento al file LICENSE per ulteriori informazioni.
