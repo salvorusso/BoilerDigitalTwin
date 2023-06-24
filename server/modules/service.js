@@ -20,42 +20,50 @@ function constructAddressSpace(server) {
     const addressSpace = server.engine.addressSpace;
     const namespace = addressSpace.getOwnNamespace();
 
+    var customFolder = namespace.addFolder("RootFolder",
+        {
+            browseName: "ProductionPlant"
+        }
+    );
+
     for (const object in nodes) {
+
         const obj = namespace.addObject({
-            organizedBy: addressSpace.rootFolder.objects,
+            organizedBy: customFolder,
             browseName: object
-        })
+        });
+
         for (const node in nodes[object]) {
             var variable = namespace.addVariable(generateVariable(obj, nodes[object][node], node));
 
             var optionBind = {
                 refreshFunc: function (callback) {
                     callUpdateEndpoint(node)
-                    .then(res => {
-                        console.log(`Value from endpoint:`, res.data);
-                        let dataValue = new opcua.DataValue({
-                            value: new opcua.Variant({ dataType: opcua.DataType.Double, value: res.data[node] }),
-                            serverTimestamp: new Date(),
-                            sourceTimestamp: res.data['sourceTimestamp']
+                        .then(res => {
+                            console.log(`Value from endpoint:`, res.data);
+                            let dataValue = new opcua.DataValue({
+                                value: new opcua.Variant({ dataType: opcua.DataType.Double, value: res.data[node] }),
+                                serverTimestamp: new Date(),
+                                sourceTimestamp: res.data['sourceTimestamp']
+                            });
+                            callback(null, dataValue)
+                        })
+                        .catch(err => {
+                            /*
+                            const varb = addressSpace.findNode(`ns=1;s=${node}`)
+                            varb.setValueFromSource(new opcua.Variant({ dataType: opcua.DataType.Double, value: 0 }), opcua.StatusCodes.BadNoDataAvailable);
+                            callback(null, dataValue);
+                            */
+
+                            // TODO: handle error
+                            callback(err)
+                            // let dataValue = new opcua.DataValue({
+                            //     value: new opcua.Variant({ dataType: opcua.DataType.Double, value: 0 }),
+                            //     statusCode: opcua.StatusCodes.BadNoDataAvailable,
+                            //     serverTimestamp: new Date()
+                            // });
+                            // callback(null, dataValue)
                         });
-                        callback(null, dataValue)
-                    })
-                    .catch(err => {
-                        /*
-                        const varb = addressSpace.findNode(`ns=1;s=${node}`)
-                        varb.setValueFromSource(new opcua.Variant({ dataType: opcua.DataType.Double, value: 0 }), opcua.StatusCodes.BadNoDataAvailable);
-                        callback(null, dataValue);
-                        */
-                       
-                        // TODO: handle error
-                        callback(err)
-                        // let dataValue = new opcua.DataValue({
-                        //     value: new opcua.Variant({ dataType: opcua.DataType.Double, value: 0 }),
-                        //     statusCode: opcua.StatusCodes.BadNoDataAvailable,
-                        //     serverTimestamp: new Date()
-                        // });
-                        // callback(null, dataValue)
-                    });
                 }
             };
             variable.bindVariable(optionBind, true);
