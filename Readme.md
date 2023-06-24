@@ -1,0 +1,54 @@
+# Progetto di Industrial Informatics
+
+Questo progetto è stato sviluppato come parte del corso Magistrale di Ingegneria Informatica LM-32 del DIEEI Unict.
+
+Il progetto propone una soluzione end-to-end di uno scenario Industrial Iot, utilizzando il protocollo OPCUA, Azure IoT Hub e Azure Digital Twin.
+
+![E2E Scenario](./assets/images/HLA%20-%202.drawio.png)
+## Descrizione dei moduli
+
+### Simulatore
+Il modulo del simulatore è responsabile della generazione di variabili pseudocasuali che rappresentano i parametri della caldaia Benson a vapore e un Generatore Elettrico. Questo modulo è scritto in Node.js e utilizza un algoritmo per generare valori casuali di una caldaia a vapore.
+
+### Server OPC UA
+Il modulo del server OPC UA legge le variabili generate dal simulatore attraverso chiamate HTTP REST e aggiorna automaticamente lo spazio degli indirizzi (address space) del server OPC UA. Questo modulo è scritto in Node.js e utilizza librerie specifiche per la comunicazione OPC UA e per la gestione delle chiamate HTTP REST.
+
+### Client OPC UA
+Il modulo del client OPC UA si occupa di effettuare delle sottoscrizioni (subscriptions) per ogni nodo di interesse nel server OPC UA e invia i dati corrispondenti al servizio Azure IoT Hub. Questo modulo è scritto in Node.js e utilizza librerie specifiche per la comunicazione OPC UA e per l'invio dei dati ad Azure IoT Hub.
+
+### Azure Function
+La Azure Function viene attivata ogni volta che vi sono nuovi messaggi provenienti da Azure IoT Hub. La funzione si occupa di aggiornare l'istanza digital twin associata alla caldaia Benson a vapore. La funzione è collegata ad un topic MQTT di Azure Event Grid, ed utilizza le librerie specifiche di Azure Digital Twin per l'aggiornamento del gemello digitale.
+
+### Digital Twin
+Il progetto include anche un modello Digital Twin definito in DTDL (Digital Twins Definition Language), che rappresenta la caldaia Benson e un Generatore Elettrico. Il Digital Twin viene aggiornato in tempo reale con i dati provenienti dal server OPC UA tramite Azure IoT Hub. Questo modello permette di monitorare e visualizzare lo stato della caldaia in modo interattivo e intuitivo. 
+
+### Azure 3D Scenes
+Per arricchire l'esperienza di visualizzazione del modello Digital Twin, il progetto utilizza Azure 3D Scenes. Azure 3D Scenes è un servizio di Azure che consente di creare scenari 3D interattivi basati su modelli e dati in tempo reale. Nel contesto di questo progetto, Azure 3D Scenes viene utilizzato per visualizzare la caldaia Benson a vapore in un ambiente tridimensionale, consentendo agli utenti di esplorarla e osservarne i cambiamenti nel tempo.
+
+![3D Scene](./assets/images/3D%20Scene.png)
+
+Attraverso l'integrazione tra il modello Digital Twin e Azure 3D Scenes, è possibile ottenere una rappresentazione visiva realistica e dinamica della caldaia, migliorando la comprensione dei dati e facilitando l'analisi delle prestazioni e degli eventuali problemi.
+
+## Utilizzo
+Per utilizzare questo progetto, è necessario seguire i seguenti passaggi:
+
+1. Installare Node.js sul proprio sistema.
+2. Clonare questo repository sul proprio computer.
+3. Aprire una finestra del terminale nella directory principale del progetto.
+4. Eseguire il comando `npm install` per installare le dipendenze necessarie.
+5. Avviare il simulatore eseguendo il comando `node simulatore.js`.
+6. Avviare il server OPC UA eseguendo il comando `node server_opcua.js`.
+7. Avviare il client OPC UA eseguendo il comando `node client_opcua.js`.
+8. Configurare correttamente l'Azure IoT Hub e l'istanza digital twin con le proprie credenziali e impostazioni.
+9. Pubblicare la funzione Azure nell'ambiente di esecuzione desiderato.
+10. Avviare il flusso di dati tramite il simulatore e osservare gli aggiornamenti automatici nell'istanza digital twin e nella scena 3D su Azure.
+
+Si prega di notare che è necessario configurare correttamente tutte le dipendenze e le credenziali per far funzionare correttamente il progetto.
+
+## Licenza
+Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://opensource.org/licenses/MIT). Fare riferimento al file LICENSE per ulteriori informazioni.
+
+## Autori
+
+- Salvatore Russo
+- Placido Papotto
