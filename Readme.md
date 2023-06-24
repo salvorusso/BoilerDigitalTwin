@@ -1,6 +1,6 @@
-# Progetto di Industrial Informatics
+# Progetto di Industrial Informatics :cloud: :factory: :mechanical_arm:
 
-Questo progetto è stato sviluppato come parte del corso Magistrale di Ingegneria Informatica LM-32 del DIEEI Unict.
+Questo progetto è stato sviluppato come parte del corso Magistrale di Ingegneria Informatica LM-32 del DIEEI Unict (A.A. 2022/2023).
 
 Il progetto propone una soluzione end-to-end di uno scenario Industrial Iot, utilizzando il protocollo OPCUA, Azure IoT Hub e Azure Digital Twin.
 
@@ -58,5 +58,5 @@ Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://open
 
 ## Autori
 
-- Salvatore Russo
-- Placido Papotto
+- [Salvatore Russo](https://github.com/salvorusso)
+- [Placido Papotto](https://github.com/Papotto97)
