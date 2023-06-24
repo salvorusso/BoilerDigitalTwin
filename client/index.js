@@ -2,9 +2,16 @@
 const opcua = require("node-opcua");
 const async = require("async");
 require("dotenv").config()
+const nodes = require('../assets/config/addressSpace.json');
 
-// const endpointUrl = "opc.tcp://<hostname>:4334/UA/MyLittleServer";
-//const endpointUrl = "opc.tcp://" + require("os").hostname() + ":4334/UA/LM-32";
+const subscriptionOptions = {
+    maxNotificationsPerPublish: 1000,
+    publishingEnabled: true,
+    requestedLifetimeCount: 100,
+    requestedMaxKeepAliveCount: 10,
+    requestedPublishingInterval: 1000
+};
+
 const endpointUrl = process.env.SERVER_URL
 const client = opcua.OPCUAClient.create({
     endpointMustExist: false
@@ -13,12 +20,11 @@ client.on("backoff", (retry, delay) =>
     console.log("still trying to connect to ", endpointUrl, ": retry =", retry, "next attempt in ", delay / 1000, "seconds")
 );
 
-
 let opcSession, opcSubscription;
 
 async.series([
 
-    // step 1 : connect to
+    // step 1 : connect to server
     function (callback) {
         client.connect(endpointUrl, function (err) {
             if (err) {
@@ -30,7 +36,7 @@ async.series([
         });
     },
 
-    // step 2 : createSession
+    // step 2 : create session
     function (callback) {
         client.createSession(function (err, session) {
             if (err) {
@@ -41,13 +47,13 @@ async.series([
         });
     },
 
-    // step 3 : browse
+    // step 3 : Browse the folder
     function (callback) {
-        opcSession.browse("RootFolder", function (err, browseResult) {
+        opcSession.browse("ns=1;s=ProductionPlant", function (err, browseResult) {
             if (!err) {
-                console.log("Browsing Root folder: ");
+                console.log("Browsing folder: ");
                 for (let reference of browseResult.references) {
-                    console.log("\t"+reference.browseName.toString(), reference.nodeId.toString());
+                    console.log("\t" + reference.browseName.toString(), reference.nodeId.toString());
                 }
             }
             callback(err);
@@ -55,14 +61,14 @@ async.series([
     },
 
     // step 4 : read a variable with readVariableValue
-    function (callback) {
-        opcSession.readVariableValue("ns=1;s=temperaturaAcquaIngresso", function (err, dataValue) {
-            if (!err) {
-                console.log("\nTemperatura Acqua in Ingresso = ", dataValue.toString());
-            }
-            callback(err);
-        });
-    },
+    // function (callback) {
+    //     opcSession.readVariableValue("ns=1;s=temperaturaAcquaIngresso", function (err, dataValue) {
+    //         if (!err) {
+    //             console.log("\nTemperatura Acqua in Ingresso = ", dataValue.toString());
+    //         }
+    //         callback(err);
+    //     });
+    // },
 
     // step 4' : read a variable with read
     function (callback) {
@@ -77,74 +83,93 @@ async.series([
     },
 
     // step 5: install a subscription and install a monitored item for 10 seconds
+    // Crea la subscription: 
+    // DOMANDE:
+    // 1. Dobbiamo creare una subscription per ogni variabile che vogliamo usare? (CREDO DI SI, per via di riga 110)
+    // 2. Come monitoriamo in parallelo tutte queste variabili? Possiamo provare con Promise.all()? Oppure con async.parallel() visto che abbiamo già la libreria
     function (callback) {
-        const subscriptionOptions = {
-            maxNotificationsPerPublish: 1000,
-            publishingEnabled: true,
-            requestedLifetimeCount: 100,
-            requestedMaxKeepAliveCount: 10,
-            requestedPublishingInterval: 1000
-        };
-        opcSession.createSubscription2(subscriptionOptions, (err, subscription) => {
+        for (const object in nodes) {
+            for (const node in nodes[object]) {
+                opcSession.createSubscription2(subscriptionOptions, (err, subscription) => {
+                    if (err) { return callback(err); }
+                    //opcSubscription = subscription;
+                    subscription.on("started", () => {
+                        console.log("subscription started for 2 seconds - subscriptionId=", opcSubscription.subscriptionId);
+                    }).on("keepalive", function () {
+                        console.log("subscription keepalive");
+                    }).on("terminated", function () {
+                        console.log("terminated");
+                    });
 
-            if (err) { return callback(err); }
+                    // Install monitored item
+                    subscription.monitor({
+                        nodeId: opcua.resolveNodeId(`ns=1;s=${node}`),
+                        attributeId: opcua.AttributeIds.Value
+                    },
+                        {
+                            samplingInterval: 500,
+                            discardOldest: true,
+                            queueSize: 10
+                        },
+                        opcua.TimestampsToReturn.Both
+                    ).then((item) => {
+                        console.log("-------------------------------------");
 
-            opcSubscription = subscription;
-
-            opcSubscription.on("started", () => {
-                console.log("subscription started for 2 seconds - subscriptionId=", opcSubscription.subscriptionId);
-            }).on("keepalive", function () {
-                console.log("subscription keepalive");
-            }).on("terminated", function () {
-                console.log("terminated");
-            });
-            callback();
-        });
-    },
-    async function (callback) {
-        // install monitored item
-        const monitoredItem = await opcSubscription.monitor({
-            nodeId: opcua.resolveNodeId("ns=1;s=potenzaElettrica"),
-            attributeId: opcua.AttributeIds.Value
-        },
-            {
-                samplingInterval: 100,
-                discardOldest: true,
-                queueSize: 10
-            },
-            opcua.TimestampsToReturn.Both
-        );
-        console.log("-------------------------------------");
-
-        monitoredItem.on("changed", function (dataValue) {
-            console.log("monitored item changed:  Potenza Elettrica = ", dataValue.value.value);
-            //Aggiorna IoT Hub
-        });
-    },
-    function (callback) {
-        // wait a little bit : 30 seconds
-        setTimeout(() => callback(), 10 * 3000);
-    },
-    // terminate subscription
-    function (callback) {
-        opcSubscription.terminate(callback);;
-    },
-    // close session
-    function (callback) {
-        opcSession.close(function (err) {
-            if (err) {
-                console.log("closing session failed ?");
+                        item.on("changed", function (dataValue) {
+                            console.log(`Monitored item changed: ${nodes[object][node]} = `, dataValue.value.value);
+                            //Aggiorna IoT Hub
+                        });
+                    });
+                    //callback();
+                });
             }
-            callback();
-        });
-    }
+        }
+
+    },
+    // async function (callback) {
+    //     // install monitored item
+    //     const monitoredItem = await opcSubscription.monitor({
+    //         nodeId: opcua.resolveNodeId("ns=1;s=potenzaElettrica"),
+    //         attributeId: opcua.AttributeIds.Value
+    //     },
+    //         {
+    //             samplingInterval: 100,
+    //             discardOldest: true,
+    //             queueSize: 10
+    //         },
+    //         opcua.TimestampsToReturn.Both
+    //     );
+    //     console.log("-------------------------------------");
+
+    //     monitoredItem.on("changed", function (dataValue) {
+    //         console.log("monitored item changed:  Potenza Elettrica = ", dataValue.value.value);
+    //         //Aggiorna IoT Hub
+    //     });
+    // },
+    // function (callback) {
+    //     // wait a little bit : 30 seconds
+    //     setTimeout(() => callback(), 10 * 3000);
+    // },
+    // // terminate subscription
+    // function (callback) {
+    //     opcSubscription.terminate(callback);;
+    // },
+    // // close session
+    // function (callback) {
+    //     opcSession.close(function (err) {
+    //         if (err) {
+    //             console.log("closing session failed ?");
+    //         }
+    //         callback();
+    //     });
+    // }
 
 ],
     function (err) {
         if (err) {
-            console.log(" failure ", err);
+            console.log("Client Failure ", err);
         } else {
-            console.log("done!");
+            console.log("Done!");
         }
         client.disconnect(function () { });
     });

@@ -5,7 +5,7 @@ const axios = require('axios');
 // Al primo livello troviamo gli oggetti
 // Dentro, le chiavi indicano le loro variabili
 // Il valore indica il BrowseName
-const nodes = require('./addressSpace.json')
+const nodes = require('../../assets/config/addressSpace.json');
 
 function generateVariable(object, browseName, value) {
     return {
@@ -22,6 +22,7 @@ function constructAddressSpace(server) {
 
     var customFolder = namespace.addFolder("RootFolder",
         {
+            nodeId: "ns=1;s=ProductionPlant",
             browseName: "ProductionPlant"
         }
     );
@@ -40,7 +41,7 @@ function constructAddressSpace(server) {
                 refreshFunc: function (callback) {
                     callUpdateEndpoint(node)
                         .then(res => {
-                            console.log(`Value from endpoint:`, res.data);
+                            //console.log(`Value from endpoint:`, res.data);
                             let dataValue = new opcua.DataValue({
                                 value: new opcua.Variant({ dataType: opcua.DataType.Double, value: res.data[node] }),
                                 serverTimestamp: new Date(),
