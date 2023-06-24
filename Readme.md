@@ -29,19 +29,27 @@ Per arricchire l'esperienza di visualizzazione del modello Digital Twin, il prog
 
 Attraverso l'integrazione tra il modello Digital Twin e Azure 3D Scenes, è possibile ottenere una rappresentazione visiva realistica e dinamica della caldaia, migliorando la comprensione dei dati e facilitando l'analisi delle prestazioni e degli eventuali problemi.
 
+## Prerequisiti
+Occorre configurare correttamente il proprio gruppo di risorse su Azure per avviare correttamente il flusso di dati e osservare gli aggiornamenti automatici nell'istanza digital twin e nella scena 3D su Azure.
+
+In particolare bisogna:
+1. Configurare correttamente Azure IoT Hub creando i devices interessati
+2. Creare uno Storage Account
+3. Pubblicare la Azure Function su un'istanza Azure Function App
+4. Creare un topic Event Grid e il trigger di attivazione per la Azure Function
+5. Pubblicare l'istanza digital twin
+6. Caricare il modello 3D
+7. Configurare oppurtuni Behaviour sulla scena 3Ds
+
+Nella repository si trovano gli assett statici necessari
+
 ## Utilizzo
 Per utilizzare questo progetto, è necessario seguire i seguenti passaggi:
 
 1. Installare Node.js sul proprio sistema.
 2. Clonare questo repository sul proprio computer.
-3. Aprire una finestra del terminale nella directory principale del progetto.
-4. Eseguire il comando `npm install` per installare le dipendenze necessarie.
-5. Avviare il simulatore eseguendo il comando `node simulatore.js`.
-6. Avviare il server OPC UA eseguendo il comando `node server_opcua.js`.
-7. Avviare il client OPC UA eseguendo il comando `node client_opcua.js`.
-8. Configurare correttamente l'Azure IoT Hub e l'istanza digital twin con le proprie credenziali e impostazioni.
-9. Pubblicare la funzione Azure nell'ambiente di esecuzione desiderato.
-10. Avviare il flusso di dati tramite il simulatore e osservare gli aggiornamenti automatici nell'istanza digital twin e nella scena 3D su Azure.
+3. Eseguire `install.bat` per installare le dipendenze necessarie.
+4. Avviare il progetto eseguendo `start.bat`
 
 Si prega di notare che è necessario configurare correttamente tutte le dipendenze e le credenziali per far funzionare correttamente il progetto.
 
