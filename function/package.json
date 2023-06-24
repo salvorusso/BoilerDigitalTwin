@@ -1,0 +1,13 @@
+{
+  "name": "function",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/digital-twins-core": "^1.1.0",
+    "@azure/identity": "^3.2.3"
+  }
+}

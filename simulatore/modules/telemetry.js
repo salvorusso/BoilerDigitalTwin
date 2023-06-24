@@ -1,6 +1,5 @@
 const { DefaultAzureCredential } = require("@azure/identity");
 const { DigitalTwinsClient } = require("@azure/digital-twins-core");
-const { inspect } = require("util");
 
 
 async function updateData(id, path, value) {
