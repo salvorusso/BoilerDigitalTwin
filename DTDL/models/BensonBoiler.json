@@ -1,41 +1,40 @@
 {
-    "@id": "dtmi:industrialInformatics:BensonBoiler;1",
-    "@type": "Interface",
-    "displayName": "Benson Boiler",
-    "contents": [
-      {
-        "@type": "Relationship",
-        "name": "contains",
-        "displayName": "contains",
-        "description": "Generatore elettrico associato al boiler",
-        "target": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-      },
-      {
-        "@type": "Property",
-        "name": "FlussoAcquaIngresso",
-        "schema": "double"
-      },
-      {
-        "@type": "Property",
-        "name": "TemperaturaAcquaIngresso",
-        "schema": "double"
-      },
-      {
-        "@type": "Property",
-        "name": "TemperaturaVaporeUscita",
-        "schema": "double"
-      },
-      {
-        "@type": "Property",
-        "name": "Efficienza",
-        "schema": "double"
-      },
-      {
-        "@type": "Property",
-        "name": "CaloreDisperso",
-        "schema": "double"
-      }
-    ],
-    "@context": "dtmi:dtdl:context;2"
-  }
-  
+  "@id": "dtmi:industrialInformatics:BensonBoiler;1",
+  "@type": "Interface",
+  "displayName": "Benson Boiler",
+  "contents": [
+    {
+      "@type": "Relationship",
+      "name": "contains",
+      "displayName": "contains",
+      "description": "Generatore elettrico associato al boiler",
+      "target": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+    },
+    {
+      "@type": "Property",
+      "name": "FlussoAcquaIngresso",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "TemperaturaAcquaIngresso",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "TemperaturaVaporeUscita",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "Efficienza",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "CaloreDisperso",
+      "schema": "double"
+    }
+  ],
+  "@context": "dtmi:dtdl:context;2"
+}

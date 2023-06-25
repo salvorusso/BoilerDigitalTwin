@@ -1,27 +1,35 @@
-<mxfile host="app.diagrams.net" modified="2023-06-18T10:57:24.980Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="Vinjms2qJbACa5Wkk0a5" version="21.4.0" type="device">
+<mxfile host="app.diagrams.net" modified="2023-06-24T21:31:55.301Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="mthXXegCwsvsrPnEWV2R" version="21.5.0" type="device">
   <diagram name="Page-1" id="ysFGFFtjgg-Z0FnmNKDy">
-    <mxGraphModel dx="1050" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="500" dy="273" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="qXdvrSGMw5chEXLrEyOh-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="qXdvrSGMw5chEXLrEyOh-11" target="qXdvrSGMw5chEXLrEyOh-17" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="qXdvrSGMw5chEXLrEyOh-17" value="Azure 3D Scene" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/mixed_reality/Remote_Rendering.svg;" parent="1" vertex="1">
-          <mxGeometry x="252" y="110.5" width="68" height="48" as="geometry" />
+          <mxGeometry x="250" y="120.36" width="68" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="BHAb-2d5pf2myuL4bh2m-1" value="API ADT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+        <mxCell id="BHAb-2d5pf2myuL4bh2m-1" value="API ADT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" source="qXdvrSGMw5chEXLrEyOh-19">
           <mxGeometry x="-0.2955" y="-6" relative="1" as="geometry">
             <mxPoint x="414" y="253.25" as="sourcePoint" />
-            <mxPoint x="414" y="158.86" as="targetPoint" />
+            <mxPoint x="440" y="150" as="targetPoint" />
             <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="491" y="206" />
+              <mxPoint x="490" y="206" />
+              <mxPoint x="490" y="150" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="qXdvrSGMw5chEXLrEyOh-19" value="Simulatore" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#8CC64F;gradientColor=none;" parent="1" vertex="1">
-          <mxGeometry x="383.5" y="253.25" width="61" height="63.5" as="geometry" />
+          <mxGeometry x="460" y="253.25" width="61" height="63.5" as="geometry" />
         </mxCell>
         <mxCell id="qXdvrSGMw5chEXLrEyOh-11" value="Digital Twin" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/internet_of_things/Digital_Twins.svg;" parent="1" vertex="1">
-          <mxGeometry x="390" y="110.15" width="48" height="48.71" as="geometry" />
+          <mxGeometry x="390" y="120" width="48" height="48.71" as="geometry" />
+        </mxCell>
+        <mxCell id="hRsNbSTLZZnEU8zJFSb_-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1.026;exitY=0.541;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.058;entryY=0.554;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="qXdvrSGMw5chEXLrEyOh-17" target="qXdvrSGMw5chEXLrEyOh-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="333.5" y="180" as="sourcePoint" />
+            <mxPoint x="380" y="146" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

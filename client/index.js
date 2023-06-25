@@ -26,7 +26,7 @@ let opcSession, opcSubscription;
 //Create IoTHub clients
 const clients = {}
 clients["Boiler"] = iot.createIotHubClient(process.env.BOILER_KEY);
-clients["GeneratoreElettrico"] = iot.createIotHubClient(process.env.GENERATOR_KEY);
+clients["Generatore Elettrico"] = iot.createIotHubClient(process.env.GENERATOR_KEY);
 
 async.series([
 

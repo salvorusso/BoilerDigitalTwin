@@ -22,8 +22,8 @@ function constructAddressSpace(server) {
 
     var customFolder = namespace.addFolder("RootFolder",
         {
-            nodeId: "ns=1;s=ProductionPlant",
-            browseName: "ProductionPlant"
+            nodeId: "s=ProductionPlant",
+            browseName: "Production Plant"
         }
     );
 
@@ -31,6 +31,7 @@ function constructAddressSpace(server) {
 
         const obj = namespace.addObject({
             organizedBy: customFolder,
+            nodeId: "s=" + object.charAt(0).toLowerCase() + object.slice(1).replaceAll(" ", ""),
             browseName: object
         });
 
@@ -69,7 +70,7 @@ function constructAddressSpace(server) {
             };
             variable.bindVariable(optionBind, true);
 
-            console.log(`Added Node: \n{\n nodeId: 'ns=1;s=${node}', \n BrowseName: '${nodes[object][node]}'\n}`);
+            console.log(`------------------------------------------------------\nAdded Node to object '${object}': \nnodeId: 'ns=1;s=${node}', \nbrowseName: '${nodes[object][node]}'\n------------------------------------------------------\n`);
         }
     }
 }
