@@ -2,7 +2,6 @@
 const protocol = require('azure-iot-device-mqtt').Mqtt;
 const client = require('azure-iot-device').Client;
 var message = require('azure-iot-device').Message;
-require("dotenv").config()
 
 var createIotHubClient = function createIotHubClient(connectioString) {
     return client.fromConnectionString(connectioString, protocol)

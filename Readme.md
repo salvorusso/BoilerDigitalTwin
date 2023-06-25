@@ -29,6 +29,9 @@ Per arricchire l'esperienza di visualizzazione del modello Digital Twin, il prog
 
 Attraverso l'integrazione tra il modello Digital Twin e Azure 3D Scenes, è possibile ottenere una rappresentazione visiva realistica e dinamica della caldaia, migliorando la comprensione dei dati e facilitando l'analisi delle prestazioni e degli eventuali problemi.
 
+### Demo
+![](./assets/images/Demo%20scenario%202.gif)
+
 ## Prerequisiti
 Occorre configurare correttamente il proprio gruppo di risorse su Azure per avviare correttamente il flusso di dati e osservare gli aggiornamenti automatici nell'istanza digital twin e nella scena 3D su Azure.
 
@@ -59,6 +62,9 @@ E' possibile utilizzare una versione minimale del progetto, che esclude gran par
 ![Minimal](./assets/images/Minimal.png)
 
 In tal caso bisogna impostare `UPDATE_DT=false` nel simulatore, per inviare direttamente i dati al Digital Twin.
+
+### Demo
+![](./assets/images/Demo%20scenario%201.gif)
 
 ## Licenza
 Questo progetto è concesso in licenza ai sensi della licenza [MIT](https://opensource.org/licenses/MIT). Fare riferimento al file LICENSE per ulteriori informazioni.
