@@ -81,18 +81,16 @@ async.series([
     // step 5: install a subscription and install a monitored item
     function (callback) {
         for (const object in nodes) {
-            for (const node in nodes[object]) {
-                opcSession.createSubscription2(subscriptionOptions, (err, subscription) => {
-                    if (err) { return callback(err); }
-
-                    subscription.on("started", () => {
-                        console.log("subscription started for 2 seconds - subscriptionId=", opcSubscription.subscriptionId);
-                    }).on("keepalive", function () {
-                        console.log("subscription keepalive");
-                    }).on("terminated", function () {
-                        console.log("terminated");
-                    });
-
+            opcSession.createSubscription2(subscriptionOptions, (err, subscription) => {
+                if (err) { return callback(err); }
+                subscription.on("started", () => {
+                    console.log("subscription started for 2 seconds - subscriptionId=", opcSubscription.subscriptionId);
+                }).on("keepalive", function () {
+                    console.log("subscription keepalive");
+                }).on("terminated", function () {
+                    console.log("terminated");
+                });
+                for (const node in nodes[object]) {
                     // Install monitored item
                     subscription.monitor({
                         nodeId: opcua.resolveNodeId(`ns=1;s=${node}`),
@@ -106,26 +104,26 @@ async.series([
                         opcua.TimestampsToReturn.Both
                     ).then((item) => {
                         item.on("changed", function (dataValue) {
-                            console.log(`Monitored item changed: ${nodes[object][node]} = `, dataValue.value.value);
+                            console.log(`Subscription ${subscription.subscriptionId}; Monitored item changed: ${nodes[object][node]} = `, dataValue.value.value);
                             //Aggiorna IoT Hub
                             path = "/" + nodes[object][node].replaceAll(" ", "")
                             iot.sendEventToIoTHub(clients[object], path, dataValue.value.value)
-                            
+
                         });
                     });
+                }
 
-                });
-            }
+            })
         }
 
     },
 
 ],
-function (err) {
-    if (err) {
-        console.log("Client Failure ", err);
-    } else {
-        console.log("Done!");
-    }
-    opcClient.disconnect(function () { });
-});
+    function (err) {
+        if (err) {
+            console.log("Client Failure ", err);
+        } else {
+            console.log("Done!");
+        }
+        opcClient.disconnect(function () { });
+    });
