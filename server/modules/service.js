@@ -7,6 +7,15 @@ const axios = require('axios');
 // Il valore indica il BrowseName
 const nodes = require('../../assets/config/addressSpace.json');
 
+const typeDefinitions = {
+    "Boiler": {
+        browseName: "Boiler Type"
+    },
+    "Generatore Elettrico": {
+        browseName: "Generatore Elettrico Type"
+    }
+}
+
 function generateVariable(object, browseName, value) {
     return {
         componentOf: object,
@@ -28,8 +37,11 @@ function constructAddressSpace(server) {
     );
 
     for (const object in nodes) {
+        // Add type definitions to namespace
+        const type = namespace.addObjectType(typeDefinitions[object])
 
-        const obj = namespace.addObject({
+        // Instantiate Objects
+        const obj = type.instantiate({
             organizedBy: customFolder,
             nodeId: "s=" + object.charAt(0).toLowerCase() + object.slice(1).replaceAll(" ", ""),
             browseName: object
