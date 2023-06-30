@@ -17,6 +17,13 @@ function getValoreSensore(valore) {
     return valore + variazione
 }
 
+function simulatePressure() {
+    const minPressure = 25; // MPa
+    const maxPressure = 30; // MPa
+    const steamPressure = Math.random() * (maxPressure - minPressure) + minPressure; 
+    return steamPressure;
+}
+
 function simulateGeneratorTemperature() {
     let temperatureFluctuation = 0.1;
     let temperatureIncrementProbability = 0.9; // 90% di probabilità di incremento
@@ -46,5 +53,6 @@ function simulateGeneratorTemperature() {
 module.exports = {
     getCaloreDisperso,
     getValoreSensore,
-    simulateGeneratorTemperature
+    simulateGeneratorTemperature,
+    simulatePressure
 }

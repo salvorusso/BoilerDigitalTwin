@@ -62,11 +62,12 @@ function simulazione() {
     // Calcolo energia termica convertita in lavoro
     // W = efficienza * Q
     lavoro = efficienza / 100 * caloreFornito; // J/s ~ W
-    console.log("Energia termica convertita in lavoro:", lavoro.toFixed(2), "J");
+    console.log("Energia termica convertita in lavoro:", lavoro.toFixed(2), "J\n");
 
     // Calcolo potenzaElettrica generata dal motore
     // Per semplicità, calcoliamo la potenzaElettrica come P=W/t
     // Supponiamo un motore ideale privo di perdite, in un tempo t=1s
+    console.log("Pressione del vapore:", random.simulatePressure().toFixed(2), "MPa")
     potenzaElettrica = lavoro / 1;
     console.log("Potenza:", (potenzaElettrica / 1000).toFixed(2), "kW");
 
@@ -126,6 +127,13 @@ app.get('/potenzaElettrica', (req, res) => {
 })
 app.get('/temperaturaGeneratore', (req, res) => {
     value = random.simulateGeneratorTemperature(300);
+    res.send({
+        value,
+        sourceTimestamp: new Date()
+    })
+})
+app.get('/pressioneVaporeUscita', (req, res) => {
+    value = random.simulatePressure();
     res.send({
         value,
         sourceTimestamp: new Date()
