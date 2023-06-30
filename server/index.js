@@ -15,8 +15,8 @@ const server = new opcua.OPCUAServer({
 
 function post_initialize() {
     console.log("Initializing...");
-    service.constructAddressSpace(server);
-    utils.createObjectTypeCustom(server);
+    // service.constructAddressSpace(server);
+    utils.createObjectType(server);
     utils.instantiateDigitalTwin(server);
     server.start(function () {
         console.log("Server is now listening ... ( press CTRL+C to stop)");
