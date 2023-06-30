@@ -19,6 +19,7 @@ let caloreFornito = 0; // J
 let efficienza = 100; // %
 let lavoro = 0; // J/s ~ W
 let potenzaElettrica = 0; // kW
+let temperaturaGeneratore = 25;
 
 function sendTelemetry() {
     //Update Digital Twin
@@ -68,6 +69,9 @@ function simulazione() {
     // Supponiamo un motore ideale privo di perdite, in un tempo t=1s
     potenzaElettrica = lavoro / 1;
     console.log("Potenza:", (potenzaElettrica / 1000).toFixed(2), "kW");
+
+    // Temperatura del generatore
+    console.log("Temperatura Generatore:", random.simulateGeneratorTemperature().toFixed(2), "°C")
     console.log("...\n");
     sendTelemetry();
 }
@@ -114,7 +118,14 @@ app.get('/temperaturaVaporeUscita', (req, res) => {
 })
 app.get('/potenzaElettrica', (req, res) => {
     lavoro = efficienza / 100 * caloreFornito;
-    value = (lavoro/1)/1000;
+    value = (lavoro / 1) / 1000;
+    res.send({
+        value,
+        sourceTimestamp: new Date()
+    })
+})
+app.get('/temperaturaGeneratore', (req, res) => {
+    value = random.simulateGeneratorTemperature(300);
     res.send({
         value,
         sourceTimestamp: new Date()
@@ -122,11 +133,11 @@ app.get('/potenzaElettrica', (req, res) => {
 })
 app.listen(port, () => {
     console.log("Starting Benson Boiler simulation... (Ctrl + C to exit...)\n...")
-    console.log(`Server listening on port ${port}\n...`)  
+    console.log(`Server listening on port ${port}\n...`)
     // Giro di inizializzazione
     simulazione()
     // Modalità batch
-    if (process.env.UPDATE_DT == 'true'){
+    if (process.env.UPDATE_DT == 'true') {
         console.log("Simulation interval:", process.env.PERIOD, "ms\n...")
         setInterval(simulazione, process.env.PERIOD);
     }
