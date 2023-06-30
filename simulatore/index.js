@@ -49,7 +49,7 @@ function simulazione() {
     // Calcolo del calore del disperso (assumendo una fluttuazione casuale)
     // Dipende da: perdita di calore nei fumi secchi, irraggiamento, combustibile incombusto ecc...
     // Si rimanda implementazione termodinamica di rendimento generatore di vapore: https://www.docenti.unina.it/webdocenti-be/allegati/materiale-didattico/648947
-    caloreDisperso = random.getCaloreDisperso() * caloreFornito; // 15% del calore fornito
+    caloreDisperso = random.getCaloreDisperso() * caloreFornito; // % del calore fornito
     console.log("Calore disperso", caloreDisperso.toFixed(2), "J");
 
     // Calcolo dell'efficienza della caldaia
@@ -78,23 +78,23 @@ const app = express()
 const port = 3000
 
 app.get('/temperaturaAcquaIngresso', (req, res) => {
-    value = random.getValoreSensore(temperaturaAcquaIngresso);
+    temperaturaAcquaIngresso = random.getValoreSensore(temperaturaAcquaIngresso);
     res.send({
-        value,
+        temperaturaAcquaIngresso,
         sourceTimestamp: new Date()
     })
 })
 app.get('/caloreDisperso', (req, res) => {
-    value = random.getCaloreDisperso() * caloreFornito;
+    caloreDisperso = random.getCaloreDisperso() * caloreFornito;
     res.send({
-        value,
+        caloreDisperso,
         sourceTimestamp: new Date()
     })
 })
 app.get('/efficienza', (req, res) => {
-    value = (1 - (caloreDisperso / caloreFornito)) * 100;
+    efficienza = (1 - (caloreDisperso / caloreFornito)) * 100;
     res.send({
-        value,
+        efficienza,
         sourceTimestamp: new Date()
     })
 })
@@ -113,6 +113,7 @@ app.get('/temperaturaVaporeUscita', (req, res) => {
     })
 })
 app.get('/potenzaElettrica', (req, res) => {
+    lavoro = efficienza / 100 * caloreFornito;
     value = (lavoro/1)/1000;
     res.send({
         value,

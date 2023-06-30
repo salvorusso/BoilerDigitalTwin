@@ -2,7 +2,7 @@ function getCaloreDisperso() {
     const min = 0.10;
     const max = 0.15;
     const perdita = Math.random() * (max - min) + min;
-    console.log("Perdita", perdita.toFixed(2));
+    //console.log("Perdita", perdita.toFixed(2));
     return perdita
 }
 
