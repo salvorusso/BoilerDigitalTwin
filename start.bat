@@ -1,4 +1,5 @@
 cd ./simulatore
+set UPDATE_DT=false
 start node ./index.js
 timeout /T 1 >nul
 

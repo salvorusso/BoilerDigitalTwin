@@ -63,6 +63,7 @@ E' possibile utilizzare una versione minimale del progetto, che esclude gran par
 
 In tal caso bisogna impostare `UPDATE_DT=false` nel simulatore, per inviare direttamente i dati al Digital Twin.
 
+Eseguire `simple.bat` per avviare il progetto in versione minimale.
 ### Demo
 ![](./assets/images/Demo%20scenario%201.gif)
 
