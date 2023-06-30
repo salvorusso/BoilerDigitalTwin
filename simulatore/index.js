@@ -15,7 +15,9 @@ let flussoAcquaIngresso = 120; // kg/s (valore letto dal sensore)
 let temperaturaAcquaIngresso = 25; // °C (valore letto dal sensore)
 let temperaturaVaporeUscita = 300; // °C (valore letto dal sensore)
 let caloreDisperso = 0; // %
+let caloreFornito = 0; // J
 let efficienza = 100; // %
+let lavoro = 0; // J/s ~ W
 let potenzaElettrica = 0; // kW
 
 function sendTelemetry() {
@@ -37,11 +39,11 @@ function simulazione() {
     console.log("Temperatura Acqua", temperaturaAcquaIngresso.toFixed(2), "°C\n");
 
     // Parametri in uscita
-    temperaturaVaporeUscita = random.getValoreSensore(300);
+    temperaturaVaporeUscita = random.getValoreSensore(temperaturaVaporeUscita);
 
     // Calcolo del calore fornito all'acqua
     // Q = mcΔT
-    const caloreFornito = flussoAcquaIngresso * caloreSpecificoAcqua * (temperaturaVaporeUscita - temperaturaAcquaIngresso); // J
+    caloreFornito = flussoAcquaIngresso * caloreSpecificoAcqua * (temperaturaVaporeUscita - temperaturaAcquaIngresso); // J
     console.log("Calore fornito", caloreFornito.toFixed(2), "J");
 
     // Calcolo del calore del disperso (assumendo una fluttuazione casuale)
@@ -58,7 +60,7 @@ function simulazione() {
 
     // Calcolo energia termica convertita in lavoro
     // W = efficienza * Q
-    const lavoro = efficienza / 100 * caloreFornito; // J/s ~ W
+    lavoro = efficienza / 100 * caloreFornito; // J/s ~ W
     console.log("Energia termica convertita in lavoro:", lavoro.toFixed(2), "J");
 
     // Calcolo potenzaElettrica generata dal motore
@@ -76,44 +78,55 @@ const app = express()
 const port = 3000
 
 app.get('/temperaturaAcquaIngresso', (req, res) => {
+    value = random.getValoreSensore(temperaturaAcquaIngresso);
     res.send({
-        temperaturaAcquaIngresso,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.get('/caloreDisperso', (req, res) => {
+    value = random.getCaloreDisperso() * caloreFornito;
     res.send({
-        caloreDisperso,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.get('/efficienza', (req, res) => {
+    value = (1 - (caloreDisperso / caloreFornito)) * 100;
     res.send({
-        efficienza,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.get('/flussoAcquaIngresso', (req, res) => {
+    value = random.getValoreSensore(flussoAcquaIngresso);
     res.send({
-        flussoAcquaIngresso,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.get('/temperaturaVaporeUscita', (req, res) => {
+    value = random.getValoreSensore(300);
     res.send({
-        temperaturaVaporeUscita,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.get('/potenzaElettrica', (req, res) => {
+    value = (lavoro/1)/1000;
     res.send({
-        potenzaElettrica,
+        value,
         sourceTimestamp: new Date()
     })
 })
 app.listen(port, () => {
     console.log("Starting Benson Boiler simulation... (Ctrl + C to exit...)\n...")
-    console.log(`Server listening on port ${port}`)
-    console.log("Simulation interval:", process.env.PERIOD, "ms\n...")
-    setInterval(simulazione, process.env.PERIOD);
+    console.log(`Server listening on port ${port}\n...`)  
+    // Giro di inizializzazione
+    simulazione()
+    // Modalità batch
+    if (process.env.UPDATE_DT == 'true'){
+        console.log("Simulation interval:", process.env.PERIOD, "ms\n...")
+        setInterval(simulazione, process.env.PERIOD);
+    }
 })
