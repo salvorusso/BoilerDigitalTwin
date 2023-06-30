@@ -1,6 +1,7 @@
 /*global require,setInterval,console */
 const opcua = require("node-opcua");
 const service = require("./modules/service")
+const utils = require("./modules/address-space-utils")
 
 const server = new opcua.OPCUAServer({
     port: 4334,
@@ -15,6 +16,8 @@ const server = new opcua.OPCUAServer({
 function post_initialize() {
     console.log("Initializing...");
     service.constructAddressSpace(server);
+    utils.createObjectTypeCustom(server);
+    utils.instantiateDigitalTwin(server);
     server.start(function () {
         console.log("Server is now listening ... ( press CTRL+C to stop)");
         console.log("Port ", server.endpoints[0].port);
