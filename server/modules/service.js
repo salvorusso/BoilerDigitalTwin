@@ -7,6 +7,15 @@ const axios = require('axios');
 // Il valore indica il BrowseName
 const nodes = require('../../assets/config/addressSpace.json');
 
+const typeDefinitions = {
+    "Boiler": {
+        browseName: "Boiler Type"
+    },
+    "Generatore Elettrico": {
+        browseName: "Generatore Elettrico Type"
+    }
+}
+
 function generateVariable(object, browseName, value) {
     return {
         componentOf: object,
@@ -22,14 +31,26 @@ function constructAddressSpace(server) {
 
     var customFolder = namespace.addFolder("RootFolder",
         {
-            nodeId: "s=ProductionPlant",
-            browseName: "Production Plant"
+            nodeId: "s=ProductionPlantOld",
+            browseName: "ProductionPlantOld"
         }
     );
 
+    var i = 0;
     for (const object in nodes) {
+        // Add type definitions to namespace
+        const type = namespace.addObjectType(typeDefinitions[object])
 
-        const obj = namespace.addObject({
+        namespace.addVariable({
+            componentOf: type,
+            browseName: 'Temperature',
+            dataType: opcua.DataType.Double,
+            nodeId: "s=Temperature" + i, //IDENTIFICATORE CON STRINGA
+            modellingRule: 'Mandatory',
+        });
+
+        // Instantiate Objects
+        const obj = type.instantiate({
             organizedBy: customFolder,
             nodeId: "s=" + object.charAt(0).toLowerCase() + object.slice(1).replaceAll(" ", ""),
             browseName: object
@@ -72,10 +93,12 @@ function constructAddressSpace(server) {
 
             console.log(`------------------------------------------------------\nAdded Node to object '${object}': \nnodeId: 'ns=1;s=${node}', \nbrowseName: '${nodes[object][node]}'\n------------------------------------------------------\n`);
         }
+        i++;
     }
 }
 
 function callUpdateEndpoint(path) {
+    console.log("Calling endpoint:", path)
     return axios.get(`http://localhost:3000/${path}`); // URL del simulatore di dati
 }
 
