@@ -25,7 +25,7 @@ Il progetto include anche un modello Digital Twin definito in DTDL (Digital Twin
 ### Azure 3D Scenes :ice_cube:
 Per arricchire l'esperienza di visualizzazione del modello Digital Twin, il progetto utilizza Azure 3D Scenes. Azure 3D Scenes è un servizio di Azure che consente di creare scenari 3D interattivi basati su modelli e dati in tempo reale. Nel contesto di questo progetto, Azure 3D Scenes viene utilizzato per visualizzare la caldaia Benson a vapore in un ambiente tridimensionale, consentendo agli utenti di esplorarla e osservarne i cambiamenti nel tempo.
 
-![3D Scene](./assets/images/3D%20Scene.png)
+![3D Scene](./assets/images/Production%20Plant%203D.png)
 
 Attraverso l'integrazione tra il modello Digital Twin e Azure 3D Scenes, è possibile ottenere una rappresentazione visiva realistica e dinamica della caldaia, migliorando la comprensione dei dati e facilitando l'analisi delle prestazioni e degli eventuali problemi.
 
