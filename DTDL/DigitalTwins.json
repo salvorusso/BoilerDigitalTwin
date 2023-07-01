@@ -15,15 +15,85 @@
                 }
             },
             {
-                "$dtId": "BensonBoiler",
+                "$dtId": "BensonBoiler1",
                 "$etag": "W/\"5b4ed0aa-4add-4b5f-a761-e3be869ee668\"",
                 "$metadata": {
                     "$model": "dtmi:industrialInformatics:BensonBoiler;1"
                 }
             },
             {
-                "$dtId": "GeneratoreElettrico",
+                "$dtId": "GeneratoreElettrico1",
                 "$etag": "W/\"5eb5b0d1-93d9-484c-8dff-cde82c6f78b4\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler2",
+                "$etag": "W/\"b1aa13d6-7e6f-4858-ab01-9e4f526fdf13\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico2",
+                "$etag": "W/\"dfcec957-9f86-4c0e-9f27-82ddbf963843\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler3",
+                "$etag": "W/\"a696b24d-8f49-4251-89b6-bcdd59318eee\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico3",
+                "$etag": "W/\"8e36a5d4-f431-4c40-986a-4c54edb7cf34\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler4",
+                "$etag": "W/\"7fa25223-3399-4a3b-85fe-b60df0380717\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico4",
+                "$etag": "W/\"ce083405-b84d-4d9d-8e27-3dd0d26f21f1\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler5",
+                "$etag": "W/\"0e4ffb4b-474b-48da-b809-236edec4b3cb\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico5",
+                "$etag": "W/\"95955e01-c277-4127-b2c0-a30f0854e498\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
+                }
+            },
+            {
+                "$dtId": "BensonBoiler6",
+                "$etag": "W/\"0e4ffb4b-474b-48da-b809-236edec4b3cb\"",
+                "$metadata": {
+                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
+                }
+            },
+            {
+                "$dtId": "GeneratoreElettrico6",
+                "$etag": "W/\"ef5f6af4-e2b5-4186-9975-3f901b06a92e\"",
                 "$metadata": {
                     "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
                 }
@@ -32,17 +102,87 @@
         "relationships": [
             {
                 "$relationshipId": "d846382e-06a1-4c40-801a-187193fb3313",
-                "$sourceId": "BensonBoiler",
-                "$targetId": "GeneratoreElettrico",
+                "$sourceId": "BensonBoiler1",
+                "$targetId": "GeneratoreElettrico1",
                 "$relationshipName": "contains",
                 "$etag": "W/\"8d7c9595-62de-4cf6-b9c8-16936c8b9bc1\""
             },
             {
+                "$relationshipId": "f8069007-5a93-4600-a25d-fd5f163118c6",
+                "$sourceId": "BensonBoiler2",
+                "$targetId": "GeneratoreElettrico2",
+                "$relationshipName": "contains",
+                "$etag": "W/\"00236642-0dec-4d50-9b1a-59d3b4f8bf16\""
+            },
+            {
+                "$relationshipId": "a858bb91-f6b7-4cd3-ba14-71c1a22a86c4",
+                "$sourceId": "BensonBoiler3",
+                "$targetId": "GeneratoreElettrico3",
+                "$relationshipName": "contains",
+                "$etag": "W/\"fac0273a-3b2a-4b44-8ed0-1c547b42f643\""
+            },
+            {
+                "$relationshipId": "94f4f5c3-c055-47f8-a6ac-bedf3341fbcb",
+                "$sourceId": "BensonBoiler4",
+                "$targetId": "GeneratoreElettrico4",
+                "$relationshipName": "contains",
+                "$etag": "W/\"6fb74cc0-8129-48e7-a8e1-d714de4c63fe\""
+            },
+            {
+                "$relationshipId": "47e39b21-1844-44fb-9808-5fe9751ede28",
+                "$sourceId": "BensonBoiler5",
+                "$targetId": "GeneratoreElettrico5",
+                "$relationshipName": "contains",
+                "$etag": "W/\"50a520a7-abe6-4bae-abdf-b3ea03ccdf51\""
+            },
+            {
+                "$relationshipId": "e75b5ce7-1a8b-467f-9492-740a424c48ad",
+                "$sourceId": "BensonBoiler6",
+                "$targetId": "GeneratoreElettrico6",
+                "$relationshipName": "contains",
+                "$etag": "W/\"b50d6e9d-e145-4a4c-8633-17494b60204f\""
+            },
+            {
                 "$relationshipId": "7e6f4b22-64ef-4162-b886-105bbdd228ae",
                 "$sourceId": "ImpiantoProduzione",
-                "$targetId": "BensonBoiler",
+                "$targetId": "BensonBoiler1",
                 "$relationshipName": "contains",
                 "$etag": "W/\"3cb602e4-6d56-4a40-b597-14b4a31c603b\""
+            },
+            {
+                "$relationshipId": "67682bbc-9511-46f7-88c1-a76df1a73f7f",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler2",
+                "$relationshipName": "contains",
+                "$etag": "W/\"077a9bea-232e-425c-ad11-ed0a59ffcf11\""
+            },
+            {
+                "$relationshipId": "d931da9a-d851-4d53-aa64-b056942580a3",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler3",
+                "$relationshipName": "contains",
+                "$etag": "W/\"1cbbc0d9-5791-4709-aa14-bae34e3a03cf\""
+            },
+            {
+                "$relationshipId": "93f75d51-1542-4d09-a44b-926b16417dc9",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler4",
+                "$relationshipName": "contains",
+                "$etag": "W/\"0b4a83ae-aa39-4bb8-a098-5f745d1ca8a5\""
+            },
+            {
+                "$relationshipId": "2fbdbcb7-07f4-4f9a-b583-48e224dd1fe4",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler5",
+                "$relationshipName": "contains",
+                "$etag": "W/\"9bbddc09-d2de-4dbf-964b-31368e75521d\""
+            },
+            {
+                "$relationshipId": "9b3a2d5d-2683-4eb8-bd96-d0eea8795d90",
+                "$sourceId": "ImpiantoProduzione",
+                "$targetId": "BensonBoiler6",
+                "$relationshipName": "contains",
+                "$etag": "W/\"ed65ded1-f715-4cda-bfec-f3fb386d4baa\""
             }
         ]
     },

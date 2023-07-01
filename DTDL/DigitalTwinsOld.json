@@ -15,85 +15,15 @@
                 }
             },
             {
-                "$dtId": "BensonBoiler1",
+                "$dtId": "BensonBoiler",
                 "$etag": "W/\"5b4ed0aa-4add-4b5f-a761-e3be869ee668\"",
                 "$metadata": {
                     "$model": "dtmi:industrialInformatics:BensonBoiler;1"
                 }
             },
             {
-                "$dtId": "BensonBoiler2",
-                "$etag": "W/\"b1aa13d6-7e6f-4858-ab01-9e4f526fdf13\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
-                }
-            },
-            {
-                "$dtId": "BensonBoiler3",
-                "$etag": "W/\"a696b24d-8f49-4251-89b6-bcdd59318eee\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
-                }
-            },
-            {
-                "$dtId": "BensonBoiler4",
-                "$etag": "W/\"7fa25223-3399-4a3b-85fe-b60df0380717\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
-                }
-            },
-            {
-                "$dtId": "BensonBoiler5",
-                "$etag": "W/\"0e4ffb4b-474b-48da-b809-236edec4b3cb\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
-                }
-            },
-            {
-                "$dtId": "BensonBoiler6",
-                "$etag": "W/\"0e4ffb4b-474b-48da-b809-236edec4b3cb\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:BensonBoiler;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico1",
+                "$dtId": "GeneratoreElettrico",
                 "$etag": "W/\"5eb5b0d1-93d9-484c-8dff-cde82c6f78b4\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico2",
-                "$etag": "W/\"dfcec957-9f86-4c0e-9f27-82ddbf963843\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico3",
-                "$etag": "W/\"8e36a5d4-f431-4c40-986a-4c54edb7cf34\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico4",
-                "$etag": "W/\"ce083405-b84d-4d9d-8e27-3dd0d26f21f1\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico5",
-                "$etag": "W/\"95955e01-c277-4127-b2c0-a30f0854e498\"",
-                "$metadata": {
-                    "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
-                }
-            },
-            {
-                "$dtId": "GeneratoreElettrico6",
-                "$etag": "W/\"ef5f6af4-e2b5-4186-9975-3f901b06a92e\"",
                 "$metadata": {
                     "$model": "dtmi:industrialInformatics:GeneratoreElettrico;1"
                 }
@@ -102,15 +32,15 @@
         "relationships": [
             {
                 "$relationshipId": "d846382e-06a1-4c40-801a-187193fb3313",
-                "$sourceId": "BensonBoiler1",
-                "$targetId": "GeneratoreElettrico1",
+                "$sourceId": "BensonBoiler",
+                "$targetId": "GeneratoreElettrico",
                 "$relationshipName": "contains",
                 "$etag": "W/\"8d7c9595-62de-4cf6-b9c8-16936c8b9bc1\""
             },
             {
                 "$relationshipId": "7e6f4b22-64ef-4162-b886-105bbdd228ae",
                 "$sourceId": "ImpiantoProduzione",
-                "$targetId": "BensonBoiler1",
+                "$targetId": "BensonBoiler",
                 "$relationshipName": "contains",
                 "$etag": "W/\"3cb602e4-6d56-4a40-b597-14b4a31c603b\""
             }

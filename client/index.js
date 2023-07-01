@@ -3,7 +3,7 @@ const opcua = require("node-opcua");
 const async = require("async");
 require("dotenv").config()
 const iot = require("./modules/iothub")
-const dtdl = require('../DTDL/DigitalTwins copy.json');
+const dtdl = require('../DTDL/DigitalTwins.json');
 
 const subscriptionOptions = {
     maxNotificationsPerPublish: 1000,

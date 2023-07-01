@@ -1,6 +1,6 @@
 const opcua = require("node-opcua");
 const axios = require('axios');
-const dtdl = require('../../DTDL/DigitalTwins copy.json');
+const dtdl = require('../../DTDL/DigitalTwins.json');
 
 //Funzione che crea gli ObjectType
 function createObjectType(server) {
