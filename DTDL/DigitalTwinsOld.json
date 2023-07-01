@@ -10,7 +10,7 @@
                 "$metadata": {
                     "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1",
                     "tags": {
-                        "ignoreOPCInstance": true
+                        "ignoreOPC": true
                     }
                 }
             },

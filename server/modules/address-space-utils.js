@@ -38,9 +38,6 @@ function createObjectType(server) {
                         });
                     }
                 }
-                else if (content["@type"] === 'Relationship') {
-
-                }
             }
         }
     }
@@ -59,46 +56,71 @@ function instantiateDigitalTwin(server) {
     );
 
     for (const digitalTwin of dtdl.digitalTwinsGraph.digitalTwins) {
-        if (!(digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPCInstance"])) {
+        if (!(digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPC"])) {
             var array = digitalTwin.$metadata.$model.split(":");
             var objType = array[array.length - 1].split(";")[0];
             if (!objType.includes("Type"))
                 objType += "Type";
-    
+
             const type = namespace.findObjectType(objType);
             const obj = type.instantiate({
                 organizedBy: customFolder,
                 nodeId: "s=" + digitalTwin.$dtId,
                 browseName: digitalTwin.$dtId
             });
-    
+
             var variables = obj.getComponents();
             for (const variable of variables) {
                 const varName = variable.browseName.name.toCamelCase();
-                
-                var optionBind = {
-                    refreshFunc: function (callback) {
-                        callUpdateEndpoint(varName)
-                            .then(res => {
-                                //console.log(`Value from endpoint:`, res.data);
-                                let dataValue = new opcua.DataValue({
-                                    value: new opcua.Variant({ dataType: opcua.DataType.Double, value: res.data[varName] }),
-                                    serverTimestamp: new Date(),
-                                    sourceTimestamp: res.data['sourceTimestamp']
+                if (variable.nodeClass === opcua.NodeClass.Variable) {
+                    var optionBind = {
+                        refreshFunc: function (callback) {
+                            callUpdateEndpoint(varName)
+                                .then(res => {
+                                    //console.log(`Value from endpoint:`, res.data);
+                                    let dataValue = new opcua.DataValue({
+                                        value: new opcua.Variant({ dataType: opcua.DataType.Double, value: res.data[varName] }),
+                                        serverTimestamp: new Date(),
+                                        sourceTimestamp: res.data['sourceTimestamp']
+                                    });
+                                    callback(null, dataValue)
+                                })
+                                .catch(err => {
+                                    let dataValue = new opcua.DataValue({
+                                        statusCode: opcua.StatusCodes.BadNoCommunication,
+                                        serverTimestamp: new Date()
+                                    });
+                                    callback(null, dataValue);
                                 });
-                                callback(null, dataValue)
-                            })
-                            .catch(err => {
-                                let dataValue = new opcua.DataValue({
-                                    statusCode: opcua.StatusCodes.BadNoCommunication,
-                                    serverTimestamp: new Date()
-                                });
-                                callback(null, dataValue);
-                            });
-                    }
-                };
-                variable.bindVariable(optionBind, true);
+                        }
+                    };
+                    variable.bindVariable(optionBind, true);
+                }
             }
+        }
+    }
+}
+
+//Funzione con il compito di creare le relazioni
+function createRelationships(server) {
+    const addressSpace = server.engine.addressSpace;
+    const namespace = addressSpace.getOwnNamespace();
+
+    for (const digitalTwin of dtdl.digitalTwinsGraph.relationships) {
+        var sourceNode = addressSpace.findNode(`ns=1;s=${digitalTwin.$sourceId}`);
+        var targetNode = addressSpace.findNode(`ns=1;s=${digitalTwin.$targetId}`);
+
+        if (!(digitalTwin.$metadata && digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPC"])) {
+            sourceNode.addReference({
+                referenceType: "IsPhysicallyConnectedTo",
+                nodeId: `ns=1;s=${digitalTwin.$targetId}`
+            }
+            );
+
+            targetNode.addReference({
+                referenceType: "IsPhysicallyConnectedTo",
+                nodeId: `ns=1;s=${digitalTwin.$sourceId}`
+            });
         }
     }
 }
@@ -106,7 +128,7 @@ function instantiateDigitalTwin(server) {
 function callUpdateEndpoint(path) {
     // console.log("Calling endpoint:", path)
     // URL del simulatore di dati
-    return axios.get(`http://localhost:3000/${path}`); 
+    return axios.get(`http://localhost:3000/${path}`);
 }
 
 String.prototype.toCamelCase = function () {
@@ -119,5 +141,6 @@ String.prototype.toCamelCase = function () {
 
 module.exports = {
     createObjectType,
-    instantiateDigitalTwin
+    instantiateDigitalTwin,
+    createRelationships
 }

@@ -15,6 +15,7 @@ function post_initialize() {
     console.log("Initializing...");
     utils.createObjectType(server);
     utils.instantiateDigitalTwin(server);
+    utils.createRelationships(server);
     server.start(function () {
         console.log("Server is now listening ... ( press CTRL+C to stop)");
         console.log("Port ", server.endpoints[0].port);

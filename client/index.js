@@ -118,7 +118,7 @@ async.series([
             });
 
             for (const digitalTwin of dtdl.digitalTwinsGraph.digitalTwins) {
-                if (!(digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPCInstance"])) {
+                if (!(digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPC"])) {
                     const model = dtdl.digitalTwinsModels.find(m => m["@id"] === digitalTwin.$metadata.$model);
 
                     for (const prop of model.contents) {
