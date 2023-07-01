@@ -27,12 +27,13 @@ const subscriptionOptions = {
         IotHubQuotaExceeded;Total number of messages on the IoT Hub exceeded the allocated quota. 
     !!!!!!!!!!!
     */
-    requestedPublishingInterval: 5000
+    requestedPublishingInterval: 10000
 };
 
 const endpointUrl = process.env.SERVER_URL
 const opcClient = opcua.OPCUAClient.create({
-    endpointMustExist: false
+    endpointMustExist: false,
+    requestedSessionTimeout: 120000
 });
 opcClient.on("backoff", (retry, delay) =>
     console.log("still trying to connect to ", endpointUrl, ": retry =", retry, "next attempt in ", delay / 1000, "seconds")
