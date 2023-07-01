@@ -8,7 +8,10 @@
                 "$dtId": "ImpiantoProduzione",
                 "$etag": "W/\"068a01b0-864e-4cc7-9012-d8f406149af0\"",
                 "$metadata": {
-                    "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1"
+                    "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                    "tags": {
+                        "ignoreOPCInstance": true
+                    }
                 }
             },
             {

@@ -104,38 +104,38 @@ app.get('/efficienza', (req, res) => {
     })
 })
 app.get('/flussoAcquaIngresso', (req, res) => {
-    value = random.getValoreSensore(flussoAcquaIngresso);
+    flussoAcquaIngresso = random.getValoreSensore(flussoAcquaIngresso);
     res.send({
-        value,
+        flussoAcquaIngresso,
         sourceTimestamp: new Date()
     })
 })
 app.get('/temperaturaVaporeUscita', (req, res) => {
-    value = random.getValoreSensore(300);
+    temperaturaVaporeUscita = random.getValoreSensore(300);
     res.send({
-        value,
+        temperaturaVaporeUscita,
         sourceTimestamp: new Date()
     })
 })
 app.get('/potenzaElettrica', (req, res) => {
     lavoro = efficienza / 100 * caloreFornito;
-    value = (lavoro / 1) / 1000;
+    potenzaElettrica = (lavoro / 1) / 1000;
     res.send({
-        value,
+        potenzaElettrica,
         sourceTimestamp: new Date()
     })
 })
 app.get('/temperaturaGeneratore', (req, res) => {
-    value = random.simulateGeneratorTemperature(300);
+    temperaturaGeneratore = random.simulateGeneratorTemperature(300);
     res.send({
-        value,
+        temperaturaGeneratore,
         sourceTimestamp: new Date()
     })
 })
 app.get('/pressioneVaporeUscita', (req, res) => {
-    value = random.simulatePressure();
+    pressioneVaporeUscita = random.simulatePressure();
     res.send({
-        value,
+        pressioneVaporeUscita,
         sourceTimestamp: new Date()
     })
 })
