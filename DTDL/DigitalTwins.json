@@ -196,6 +196,16 @@
                     "@type": "Property",
                     "name": "PotenzaElettrica",
                     "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "TemperaturaGeneratore",
+                    "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "PressioneVaporeUscita",
+                    "schema": "double"
                 }
             ],
             "@context": "dtmi:dtdl:context;2"
