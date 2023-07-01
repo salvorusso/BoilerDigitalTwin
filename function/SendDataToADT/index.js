@@ -5,7 +5,7 @@ module.exports = async function (context, eventGridEvent) {
     context.log(typeof eventGridEvent);
     context.log(eventGridEvent);
 
-    const url = "https://Sample-DT.api.weu.digitaltwins.azure.net";
+    const url = "https://MyProductionPlant.api.weu.digitaltwins.azure.net";
     const credential = new DefaultAzureCredential();
     const serviceClient = new DigitalTwinsClient(url, credential);
 
