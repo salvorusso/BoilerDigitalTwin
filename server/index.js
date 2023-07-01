@@ -1,6 +1,4 @@
-/*global require,setInterval,console */
 const opcua = require("node-opcua");
-const service = require("./modules/service")
 const utils = require("./modules/address-space-utils")
 
 const server = new opcua.OPCUAServer({
@@ -15,7 +13,6 @@ const server = new opcua.OPCUAServer({
 
 function post_initialize() {
     console.log("Initializing...");
-    // service.constructAddressSpace(server);
     utils.createObjectType(server);
     utils.instantiateDigitalTwin(server);
     server.start(function () {
@@ -24,11 +21,6 @@ function post_initialize() {
         const endpointUrl = server.endpoints[0].endpointDescriptions()[0].endpointUrl;
         console.log("Primary server endpoint url", endpointUrl);
 
-        //Una alternativa rispetto alla versione attuale è quella di aggiornare "in background" i valori delle variabili, chiamando le API esposte dal simulatore
-        // Aggiorna i valori in batch
-        // setInterval(() => {
-        //     service.updateVariables(server)
-        // }, 1000)
     });
 }
 server.initialize(post_initialize);
