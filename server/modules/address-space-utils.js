@@ -25,17 +25,35 @@ function createObjectType(server) {
                 //Se il contentuto è 'Property' devo aggiungere una variabile al tipo appena creato
                 if (content["@type"] === 'Property') {
                     var dataType = opcua.DataType.Null;
-                    if (content.schema.toLowerCase() === 'double')
-                        dataType = opcua.DataType.Double;
+                    if (typeof content.schema === 'string') {
+                        if (content.schema.toLowerCase() === 'double')
+                            dataType = opcua.DataType.Double;
 
-                    if (dataType != opcua.DataType.Null) {
-                        namespace.addVariable({
-                            componentOf: customObject,
-                            browseName: content["name"],
-                            dataType: dataType,
-                            //Senza questo parametro non vengono viste le variabili
-                            modellingRule: 'Mandatory',
-                        });
+                        if (dataType != opcua.DataType.Null) {
+                            namespace.addVariable({
+                                componentOf: customObject,
+                                browseName: content["name"],
+                                dataType: dataType,
+                                //Senza questo parametro non vengono viste le variabili
+                                modellingRule: 'Mandatory',
+                            });
+                        }
+                    }
+                    else if (content.name === "Properties") {
+                        for (const field of content.schema.fields) {
+                            const model = namespace.addVariable({
+                                propertyOf: customObject,
+                                browseName: field.name,
+                                dataType: opcua.DataType.String,
+                                modellingRule: 'Mandatory'
+                            });
+                            if (!!field.comment) {
+                                model.setValueFromSource({
+                                    dataType: opcua.DataType.String,
+                                    value: field.comment,
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -104,25 +122,74 @@ function instantiateDigitalTwin(server) {
 //Funzione con il compito di creare le relazioni
 function createRelationships(server) {
     const addressSpace = server.engine.addressSpace;
-    const namespace = addressSpace.getOwnNamespace();
 
-    for (const digitalTwin of dtdl.digitalTwinsGraph.relationships) {
-        var sourceNode = addressSpace.findNode(`ns=1;s=${digitalTwin.$sourceId}`);
-        var targetNode = addressSpace.findNode(`ns=1;s=${digitalTwin.$targetId}`);
+    for (const rel of dtdl.digitalTwinsGraph.relationships) {
+        var targetNode = addressSpace.findNode(`ns=1;s=${rel.$targetId}`);
 
-        if (!(digitalTwin.$metadata && digitalTwin.$metadata.tags && digitalTwin.$metadata.tags["ignoreOPC"])) {
-            sourceNode.addReference({
-                referenceType: "IsPhysicallyConnectedTo",
-                nodeId: `ns=1;s=${digitalTwin.$targetId}`
-            }
-            );
+        if (!(rel.$metadata && rel.$metadata.tags && rel.$metadata.tags["ignoreOPC"])
+            && rel.$metadata && rel.$metadata.tags["sourceModel"] && rel.$metadata.tags["targetModel"]) {
 
             targetNode.addReference({
-                referenceType: "IsPhysicallyConnectedTo",
-                nodeId: `ns=1;s=${digitalTwin.$sourceId}`
+                referenceType: rel.$metadata.tags["inverseReferenceType"],
+                nodeId: `ns=1;s=${rel.$sourceId}`
             });
         }
     }
+}
+
+//Funzione con il compito di creare le relazioni
+// function createRelationshipsNUOVA(server) {
+//     const addressSpace = server.engine.addressSpace;
+//     const namespace = addressSpace.getOwnNamespace();
+
+//     for (const relationship of dtdl.digitalTwinsGraph.relationships) {
+//         // var sourceNode = addressSpace.findNode(`ns=1;s=${relationship.$sourceId}`);
+//         // var targetNode = addressSpace.findNode(`ns=1;s=${relationship.$targetId}`);
+
+//         if (relationship.$metadata && relationship.$metadata.tags && relationship.$metadata.tags["sourceModel"] && relationship.$metadata.tags["targetModel"]) {
+//             var sourceObjTypeName = composeObjectTypeName(relationship.$metadata.tags["sourceModel"])
+//             var targetObjTypeName = composeObjectTypeName(relationship.$metadata.tags["targetModel"])
+
+//             const sourceType = namespace.findObjectType(sourceObjTypeName);
+//             const targetType = namespace.findObjectType(targetObjTypeName);
+
+//             sourceType.addReference({
+//                 referenceType: relationship.$metadata.tags["referenceType"],
+//                 nodeId: `ns=1;s=${targetObjTypeName}`
+//             });
+
+//             targetType.addReference({
+//                 referenceType: relationship.$metadata.tags["inverseReferenceType"],
+//                 nodeId: `ns=1;s=${sourceObjTypeName}`
+//             });
+//         }
+//         // var array = digitalTwin.$metadata.$model.split(":");
+//         // var objType = array[array.length - 1].split(";")[0];
+//         // if (!objType.includes("Type"))
+//         //     objType += "Type";
+
+//         // if (!(relationship.$metadata && relationship.$metadata.tags && relationship.$metadata.tags["ignoreOPC"])) {
+//         //     sourceNode.addReference({
+//         //         referenceType: "IsPhysicallyConnectedTo",
+//         //         nodeId: `ns=1;s=${relationship.$targetId}`
+//         //     }
+//         //     );
+
+//         //     targetNode.addReference({
+//         //         referenceType: "IsPhysicallyConnectedTo",
+//         //         nodeId: `ns=1;s=${relationship.$sourceId}`
+//         //     });
+//         // }
+//     }
+// }
+
+function composeObjectTypeName(jsonModelName) {
+    var array = jsonModelName.split(":");
+    var objType = array[array.length - 1].split(";")[0];
+    if (!objType.includes("Type"))
+        objType += "Type";
+
+    return objType;
 }
 
 function callUpdateEndpoint(path) {

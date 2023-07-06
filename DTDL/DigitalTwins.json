@@ -8,10 +8,7 @@
                 "$dtId": "ImpiantoProduzione",
                 "$etag": "W/\"068a01b0-864e-4cc7-9012-d8f406149af0\"",
                 "$metadata": {
-                    "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1",
-                    "tags": {
-                        "ignoreOPC": true
-                    }
+                    "$model": "dtmi:industrialInformatics:ImpiantoProduzione;1"
                 }
             },
             {
@@ -105,42 +102,90 @@
                 "$sourceId": "BensonBoiler1",
                 "$targetId": "GeneratoreElettrico1",
                 "$relationshipName": "has",
-                "$etag": "W/\"8d7c9595-62de-4cf6-b9c8-16936c8b9bc1\""
+                "$etag": "W/\"8d7c9595-62de-4cf6-b9c8-16936c8b9bc1\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "f8069007-5a93-4600-a25d-fd5f163118c6",
                 "$sourceId": "BensonBoiler2",
                 "$targetId": "GeneratoreElettrico2",
                 "$relationshipName": "has",
-                "$etag": "W/\"00236642-0dec-4d50-9b1a-59d3b4f8bf16\""
+                "$etag": "W/\"00236642-0dec-4d50-9b1a-59d3b4f8bf16\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "a858bb91-f6b7-4cd3-ba14-71c1a22a86c4",
                 "$sourceId": "BensonBoiler3",
                 "$targetId": "GeneratoreElettrico3",
                 "$relationshipName": "has",
-                "$etag": "W/\"fac0273a-3b2a-4b44-8ed0-1c547b42f643\""
+                "$etag": "W/\"fac0273a-3b2a-4b44-8ed0-1c547b42f643\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "94f4f5c3-c055-47f8-a6ac-bedf3341fbcb",
                 "$sourceId": "BensonBoiler4",
                 "$targetId": "GeneratoreElettrico4",
                 "$relationshipName": "has",
-                "$etag": "W/\"6fb74cc0-8129-48e7-a8e1-d714de4c63fe\""
+                "$etag": "W/\"6fb74cc0-8129-48e7-a8e1-d714de4c63fe\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "47e39b21-1844-44fb-9808-5fe9751ede28",
                 "$sourceId": "BensonBoiler5",
                 "$targetId": "GeneratoreElettrico5",
                 "$relationshipName": "has",
-                "$etag": "W/\"50a520a7-abe6-4bae-abdf-b3ea03ccdf51\""
+                "$etag": "W/\"50a520a7-abe6-4bae-abdf-b3ea03ccdf51\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "e75b5ce7-1a8b-467f-9492-740a424c48ad",
                 "$sourceId": "BensonBoiler6",
                 "$targetId": "GeneratoreElettrico6",
                 "$relationshipName": "has",
-                "$etag": "W/\"b50d6e9d-e145-4a4c-8633-17494b60204f\""
+                "$etag": "W/\"b50d6e9d-e145-4a4c-8633-17494b60204f\"",
+                "$metadata": {
+                    "tags": {
+                        "sourceModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "targetModel": "dtmi:industrialInformatics:GeneratoreElettrico;1",
+                        "referenceType": "HasAttachedComponent",
+                        "inverseReferenceType": "AttachedComponentOf"
+                    }
+                }
             },
             {
                 "$relationshipId": "7e6f4b22-64ef-4162-b886-105bbdd228ae",
@@ -150,7 +195,10 @@
                 "$etag": "W/\"3cb602e4-6d56-4a40-b597-14b4a31c603b\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             },
@@ -162,7 +210,10 @@
                 "$etag": "W/\"077a9bea-232e-425c-ad11-ed0a59ffcf11\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             },
@@ -174,7 +225,10 @@
                 "$etag": "W/\"1cbbc0d9-5791-4709-aa14-bae34e3a03cf\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             },
@@ -186,7 +240,10 @@
                 "$etag": "W/\"0b4a83ae-aa39-4bb8-a098-5f745d1ca8a5\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             },
@@ -198,7 +255,10 @@
                 "$etag": "W/\"9bbddc09-d2de-4dbf-964b-31368e75521d\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             },
@@ -210,7 +270,10 @@
                 "$etag": "W/\"ed65ded1-f715-4cda-bfec-f3fb386d4baa\"",
                 "$metadata": {
                     "tags": {
-                        "ignoreOPC": true
+                        "sourceModel": "dtmi:industrialInformatics:ImpiantoProduzione;1",
+                        "targetModel": "dtmi:industrialInformatics:BensonBoiler;1",
+                        "referenceType": "HasChild",
+                        "inverseReferenceType": "ChildOf"
                     }
                 }
             }
@@ -236,6 +299,35 @@
                     "@type": "Property",
                     "name": "PressioneVaporeUscita",
                     "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "Properties",
+                    "schema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Marca",
+                                "schema": "string",
+                                "comment": "Marca del generatore"
+                            },
+                            {
+                                "name": "Modello",
+                                "schema": "string",
+                                "comment": "Modello del generatore"
+                            },
+                            {
+                                "name": "Dimensioni",
+                                "schema": "string",
+                                "comment": "632x577x563mm"
+                            },
+                            {
+                                "name": "LivelloSonoro",
+                                "schema": "string",
+                                "comment": "100dB"
+                            }
+                        ]
+                    }
                 }
             ],
             "@context": "dtmi:dtdl:context;2"
@@ -276,6 +368,35 @@
                     "@type": "Property",
                     "name": "CaloreDisperso",
                     "schema": "double"
+                },
+                {
+                    "@type": "Property",
+                    "name": "Properties",
+                    "schema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Capacita",
+                                "schema": "string",
+                                "comment": "10000L"
+                            },
+                            {
+                                "name": "PressioneSupercritica",
+                                "schema": "string",
+                                "comment": "225bar"
+                            },
+                            {
+                                "name": "Marca",
+                                "schema": "string",
+                                "comment": "Marca del boiler"
+                            },
+                            {
+                                "name": "Modello",
+                                "schema": "string",
+                                "comment": "Modello del boiler"
+                            }
+                        ]
+                    }
                 }
             ],
             "@context": "dtmi:dtdl:context;2"
@@ -291,6 +412,30 @@
                     "displayName": "has",
                     "description": "Benson Boiler dell'impianto di produzione",
                     "target": "dtmi:industrialInformatics:BensonBoiler;1"
+                },
+                {
+                    "@type": "Property",
+                    "name": "Properties",
+                    "schema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Indirizzo",
+                                "schema": "string",
+                                "comment": "Via santa sofia"
+                            },
+                            {
+                                "name": "Superficie",
+                                "schema": "string",
+                                "comment": "2000 mq"
+                            },
+                            {
+                                "name": "EnergiaNominale",
+                                "schema": "string",
+                                "comment": "10000 kW"
+                            }
+                        ]
+                    }
                 }
             ],
             "@context": "dtmi:dtdl:context;2"

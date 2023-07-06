@@ -130,9 +130,9 @@ async.series([
                                 attributeId: opcua.AttributeIds.Value
                             },
                                 {
-                                    samplingInterval: 500,
+                                    samplingInterval: 5000,
                                     discardOldest: true,
-                                    queueSize: 10
+                                    queueSize: 1
                                 },
                                 opcua.TimestampsToReturn.Both
                             ).then((item) => {
