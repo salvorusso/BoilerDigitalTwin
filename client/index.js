@@ -129,8 +129,8 @@ async.series([
                                 attributeId: opcua.AttributeIds.Value
                             },
                                 {
-                                    samplingInterval: 5000,
-                                    discardOldest: true,
+                                    samplingInterval: 10000, //Same as request publishing interval, but could be also lower
+                                    discardOldest: true, //FIFO
                                     queueSize: 1
                                 },
                                 opcua.TimestampsToReturn.Both
