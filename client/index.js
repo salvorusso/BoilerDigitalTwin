@@ -9,8 +9,7 @@ const subscriptionOptions = {
     maxNotificationsPerPublish: 1000,
     publishingEnabled: true,
     /*
-    Il "requestedLifetimeCount" indica al server quanti campioni di dati vuoi che vengano conservati nella cache per ogni valore monitorato.
-    Quando la cache raggiunge il limite specificato da "requestedLifetimeCount", i campioni più vecchi vengono scartati per fare spazio ai nuovi campioni che arrivano.
+    Il "requestedLifetimeCount" indica al server quanto tempo può trascorrere senza che sia monitorata nessuna attività da parte del client
     */
     requestedLifetimeCount: 1000,
     /*
